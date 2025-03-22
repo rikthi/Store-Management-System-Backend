@@ -58,5 +58,19 @@ public class Employee {
         this.supervisor = supervisor;
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", address='" + address + '\'' +
+                ", supervisor=" + supervisor +
+                '}';
+    }
+
 
 }
