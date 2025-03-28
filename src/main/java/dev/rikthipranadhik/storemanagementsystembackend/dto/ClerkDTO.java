@@ -1,4 +1,4 @@
 package dev.rikthipranadhik.storemanagementsystembackend.dto;
 
-public record Cashier(int id) {
+public record ClerkDTO(int id) {
 }
