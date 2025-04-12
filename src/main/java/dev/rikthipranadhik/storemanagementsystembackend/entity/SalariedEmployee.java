@@ -11,18 +11,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(name="salaried_employee")
 @Getter
+
 @Setter
-public class SalariedEmployee {
-
-    @Id
-    @Column(name = "Employee_ID", nullable = false)
-    private Integer id;
-
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "Employee_ID", nullable = false)
-    private Employee employee;
+public class SalariedEmployee extends Employee {
 
     @Column(name = "Salary", nullable = false, precision = 10, scale = 2)
     private BigDecimal salary;
@@ -30,9 +21,7 @@ public class SalariedEmployee {
     public SalariedEmployee() {
     }
 
-    public SalariedEmployee(Integer id, Employee employee, BigDecimal salary) {
-        this.id = id;
-        this.employee = employee;
+    public SalariedEmployee(BigDecimal salary) {
         this.salary = salary;
     }
 }

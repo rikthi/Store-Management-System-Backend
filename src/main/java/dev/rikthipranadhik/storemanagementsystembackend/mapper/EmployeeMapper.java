@@ -5,6 +5,6 @@ import dev.rikthipranadhik.storemanagementsystembackend.entity.Employee;
 
 public interface EmployeeMapper {
 
-    Employee fromDTO(EmployeeDTO employeeDTO);
+    Employee fromDTO(EmployeeDTO employeeDTO, Employee supervisor);
     EmployeeDTO toDTO(Employee employee);
 }
