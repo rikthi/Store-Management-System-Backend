@@ -7,23 +7,14 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name= "hourly_employee")
 @Getter
 @Setter
-public class HourlyEmployee {
+public class HourlyEmployee extends Employee {
 
-
-    @Id
-    @Column(name = "Employee_ID", nullable = false)
-    private Integer id;
-
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "Employee_ID", nullable = false)
-    private Employee employee;
 
     @Column(name = "Pay_Scale", precision = 10, scale = 2)
     private BigDecimal payScale;
@@ -31,9 +22,11 @@ public class HourlyEmployee {
     public HourlyEmployee() {
     }
 
-    public HourlyEmployee(Integer id, Employee employee, BigDecimal payScale) {
-        this.id = id;
-        this.employee = employee;
+    public HourlyEmployee(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor, BigDecimal payScale) {
+        super(id, name, gender, phoneNumber, dateOfBirth, emailAddress, address, supervisor);
+        this.payScale = payScale;
+    }
+    public HourlyEmployee(BigDecimal payScale) {
         this.payScale = payScale;
     }
 }

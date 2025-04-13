@@ -8,16 +8,18 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name= "employee")
 @Getter
 @Setter
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name= "Employee_ID", updatable = false, nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(name = "Name", nullable = false)
     private String name;
@@ -44,10 +46,11 @@ public class Employee {
     @JoinColumn(name = "Supervisor_ID")
     private Employee supervisor;
 
+
     public Employee() {
     }
 
-    public Employee(int id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor) {
+    public Employee(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -56,6 +59,7 @@ public class Employee {
         this.emailAddress = emailAddress;
         this.address = address;
         this.supervisor = supervisor;
+
     }
 
     @Override
