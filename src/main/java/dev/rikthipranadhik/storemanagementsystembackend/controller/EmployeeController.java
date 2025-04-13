@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
-@RequestMapping(path = "employees")
+@RequestMapping(path = "/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -20,7 +21,7 @@ public class EmployeeController {
         this.employeeMapper = employeeMapper;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<EmployeeDTO> listAllEmployees() {
         return employeeService.listAllEmployees()
                 .stream()
