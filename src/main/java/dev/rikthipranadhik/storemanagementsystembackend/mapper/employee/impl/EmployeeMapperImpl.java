@@ -1,8 +1,8 @@
-package dev.rikthipranadhik.storemanagementsystembackend.mapper.impl;
+package dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.impl;
 
-import dev.rikthipranadhik.storemanagementsystembackend.dto.EmployeeDTO;
-import dev.rikthipranadhik.storemanagementsystembackend.entity.Employee;
-import dev.rikthipranadhik.storemanagementsystembackend.mapper.EmployeeMapper;
+import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.EmployeeDTO;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.EmployeeMapper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,6 +11,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
     @Override
     public Employee fromDTO(EmployeeDTO employeeDTO) {
+        if  (employeeDTO == null) {
+            return null;
+        }
         return new Employee(
                 employeeDTO.id(),
                 employeeDTO.name(),
@@ -19,16 +22,15 @@ public class EmployeeMapperImpl implements EmployeeMapper {
                 employeeDTO.dateOfBirth(),
                 employeeDTO.emailAddress(),
                 employeeDTO.address(),
-                null
+                fromDTO(employeeDTO.supervisor())
 //                employeeDTO.supervisorId()                //find supervisor employee
         );
     }
 
     @Override
     public EmployeeDTO toDTO(Employee employee) {
-        Integer supervisorId = null;
-        if (employee.getSupervisor() != null) {
-            supervisorId = employee.getSupervisor().getId();
+        if  (employee == null) {
+            return null;
         }
         return new EmployeeDTO(
                 employee.getId(),
@@ -38,7 +40,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
                 employee.getDateOfBirth(),
                 employee.getEmailAddress(),
                 employee.getAddress(),
-                supervisorId
+                toDTO(employee.getSupervisor())
         );
     }
 

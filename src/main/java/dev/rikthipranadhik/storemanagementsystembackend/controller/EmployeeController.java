@@ -1,9 +1,10 @@
 package dev.rikthipranadhik.storemanagementsystembackend.controller;
 
-import dev.rikthipranadhik.storemanagementsystembackend.dto.EmployeeDTO;
-import dev.rikthipranadhik.storemanagementsystembackend.entity.Employee;
-import dev.rikthipranadhik.storemanagementsystembackend.mapper.EmployeeMapper;
+import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.EmployeeDTO;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.EmployeeMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.EmployeeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,12 +31,12 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public EmployeeDTO createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
         Employee employee = employeeService.createEmployee(
                 employeeMapper.fromDTO(employeeDTO)
         );
 
-        return employeeMapper.toDTO(employee);
+        return ResponseEntity.ok(employeeMapper.toDTO(employee));
     }
 
 

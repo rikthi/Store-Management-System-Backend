@@ -1,4 +1,4 @@
-package dev.rikthipranadhik.storemanagementsystembackend.entity;
+package dev.rikthipranadhik.storemanagementsystembackend.entity.employee;
 
 
 import jakarta.persistence.*;
@@ -8,10 +8,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name= "employee")
 @Getter
 @Setter

@@ -1,6 +1,6 @@
 package dev.rikthipranadhik.storemanagementsystembackend.service.impl;
 
-import dev.rikthipranadhik.storemanagementsystembackend.entity.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.EmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.EmployeeService;
 import org.springframework.stereotype.Service;
