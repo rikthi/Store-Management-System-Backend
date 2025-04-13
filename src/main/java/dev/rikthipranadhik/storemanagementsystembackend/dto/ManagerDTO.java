@@ -1,4 +1,4 @@
 package dev.rikthipranadhik.storemanagementsystembackend.dto;
 
-public record ManagerDTO(int id) {
+public record ManagerDTO(Integer id) {
 }
