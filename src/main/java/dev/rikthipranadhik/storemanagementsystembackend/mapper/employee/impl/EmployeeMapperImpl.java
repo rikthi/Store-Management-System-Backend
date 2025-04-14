@@ -22,8 +22,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
                 employeeDTO.dateOfBirth(),
                 employeeDTO.emailAddress(),
                 employeeDTO.address(),
-                fromDTO(employeeDTO.supervisor())
-//                employeeDTO.supervisorId()                //find supervisor employee
+                null
+//              Supervisor is set later in the service
         );
     }
 
@@ -32,6 +32,12 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         if  (employee == null) {
             return null;
         }
+
+        Integer supervisorId = null;
+        if (employee.getSupervisor() != null) {
+            supervisorId = employee.getSupervisor().getId();
+        }
+
         return new EmployeeDTO(
                 employee.getId(),
                 employee.getName(),
@@ -40,7 +46,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
                 employee.getDateOfBirth(),
                 employee.getEmailAddress(),
                 employee.getAddress(),
-                toDTO(employee.getSupervisor())
+                supervisorId
         );
     }
 

@@ -32,11 +32,10 @@ public class EmployeeController {
 
     @PostMapping("/create")
     public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = employeeService.createEmployee(
-                employeeMapper.fromDTO(employeeDTO)
-        );
-
-        return ResponseEntity.ok(employeeMapper.toDTO(employee));
+        Employee employee = employeeMapper.fromDTO(employeeDTO);
+        Integer supervisorId = employeeDTO.supervisorId();
+        Employee finalEmployee = employeeService.createEmployee(employee, supervisorId);
+        return ResponseEntity.ok(employeeMapper.toDTO(finalEmployee));
     }
 
 

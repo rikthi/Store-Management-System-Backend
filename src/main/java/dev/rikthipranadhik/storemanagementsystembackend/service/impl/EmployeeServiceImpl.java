@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee createEmployee(Employee employee) {
+    public Employee createEmployee(Employee employee, Integer supervisorId) {
         if (employee.getId() != null){
             throw new IllegalArgumentException("Employee Already has an ID");
         }
@@ -30,6 +30,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee.getName() == null || employee.getName().isEmpty()){
             throw new IllegalArgumentException("Employee Name is Empty");
         }
+        Employee supervisor = null;
+
+        if (supervisorId != null){
+            supervisor = employeeRepository.findById(supervisorId).orElse(null);
+        }
+
+
 
         return employeeRepository.save(new Employee(
                 null,
@@ -39,8 +46,22 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employee.getDateOfBirth(),
                 employee.getEmailAddress(),
                 employee.getAddress(),
-                employee.getSupervisor()
+                supervisor
         ));
+    }
+
+    public Employee getEmployeeById(Integer id){
+         return employeeRepository.findById(id)
+                 .orElseThrow(
+                         ()->new IllegalArgumentException("Employee Not Found")
+                 );
+    }
+
+    public Employee getEmployeeByEmailAddress(String emailAddress){
+         return employeeRepository.findByEmailAddress(emailAddress)
+                 .orElseThrow(
+                         () -> new IllegalArgumentException("Employee Not Found")
+                 );
     }
 
 
