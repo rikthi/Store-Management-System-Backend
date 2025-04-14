@@ -1,4 +1,4 @@
-package dev.rikthipranadhik.storemanagementsystembackend.service;
+package dev.rikthipranadhik.storemanagementsystembackend.service.employee;
 
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;

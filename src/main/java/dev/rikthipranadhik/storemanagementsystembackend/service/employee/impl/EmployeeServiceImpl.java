@@ -1,8 +1,8 @@
-package dev.rikthipranadhik.storemanagementsystembackend.service.impl;
+package dev.rikthipranadhik.storemanagementsystembackend.service.employee.impl;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
-import dev.rikthipranadhik.storemanagementsystembackend.repository.EmployeeRepository;
-import dev.rikthipranadhik.storemanagementsystembackend.service.EmployeeService;
+import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.EmployeeRepository;
+import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

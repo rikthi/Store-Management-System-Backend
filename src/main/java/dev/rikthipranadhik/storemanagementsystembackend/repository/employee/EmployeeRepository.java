@@ -1,4 +1,4 @@
-package dev.rikthipranadhik.storemanagementsystembackend.repository;
+package dev.rikthipranadhik.storemanagementsystembackend.repository.employee;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;

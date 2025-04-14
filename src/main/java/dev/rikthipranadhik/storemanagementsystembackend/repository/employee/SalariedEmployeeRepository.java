@@ -1,4 +1,4 @@
-package dev.rikthipranadhik.storemanagementsystembackend.repository;
+package dev.rikthipranadhik.storemanagementsystembackend.repository.employee;
 
 import org.springframework.stereotype.Repository;
 

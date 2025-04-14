@@ -3,7 +3,7 @@ package dev.rikthipranadhik.storemanagementsystembackend.controller;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.EmployeeDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.EmployeeMapper;
-import dev.rikthipranadhik.storemanagementsystembackend.service.EmployeeService;
+import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
