@@ -22,12 +22,12 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<Attendance> listAllAttendance() {
-        return attendanceRepository.findAll();
+    public List<Attendance> listAllAttendance(Long storeId) {
+        return attendanceRepository.findByEmployee_Store_Id(storeId);
     }
 
     @Override
-    public Attendance createAttendance(Attendance attendance, Integer employeeId, Integer verifierId) {
+    public Attendance createAttendance(Attendance attendance, Integer employeeId, Integer verifierId, Long storeId) {
         if (attendance.getId() != null) {
             throw new IllegalArgumentException("New attendance ID has to be null");
         }
@@ -35,13 +35,26 @@ public class AttendanceServiceImpl implements AttendanceService {
         if  (employee == null) {
             throw new IllegalArgumentException("Employee with id: " + employeeId + " does not exist");
         }
+
+        if (!employee.getStore().getId().equals(storeId)) {
+            throw new IllegalArgumentException("Employee with id: " + employeeId +" does not exist in the store");
+        }
         attendance.setEmployee(employee);
-        attendance.setVerifier(employeeRepository.findById(verifierId).orElse(null));
+        if(verifierId != null) {
+            attendance.setVerifier(employeeRepository.findById(verifierId).orElse(null));
+        }
         return attendanceRepository.save(attendance);
     }
 
     @Override
-    public List<Attendance> getAllAttendanceByEmployeeId(Integer employeeId) {
+    public List<Attendance> getAllAttendanceByEmployeeId(Integer employeeId, Long storeId) {
+        Employee employee = employeeRepository.findById(employeeId).orElse(null);
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee with id: " + employeeId + " does not exist");
+        }
+        if (!employee.getStore().getId().equals(storeId)) {
+            return null;
+        }
         return attendanceRepository.findByEmployeeId(employeeId);
     }
 

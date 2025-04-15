@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(path = "/attendance")
+@RequestMapping(path = "{storeId}/attendance")
 public class AttendanceController {
 
     private final AttendanceService attendanceService;
@@ -25,22 +25,22 @@ public class AttendanceController {
     }
 
     @GetMapping("")
-    public List<AttendanceDTO> listAllAttendance() {
-        return attendanceService.listAllAttendance()
+    public List<AttendanceDTO> listAllAttendance(@PathVariable("storeId") Long storeId) {
+        return attendanceService.listAllAttendance(storeId)
                 .stream()
                 .map(attendanceMapper::toDTO)
                 .toList();
     }
 
     @PostMapping("/create")
-    public ResponseEntity<AttendanceDTO> createAttendance(@RequestBody AttendanceDTO attendanceDTO) {
+    public ResponseEntity<AttendanceDTO> createAttendance(@RequestBody AttendanceDTO attendanceDTO, @PathVariable("storeId") Long storeId) {
         Attendance attendance = attendanceMapper.fromDTO(attendanceDTO);
         if (attendanceDTO.employeeId() == null) {
             return ResponseEntity.badRequest().build();
         }
 
         attendance = attendanceService.createAttendance(
-                attendance, attendanceDTO.employeeId(), attendanceDTO.verifierId()
+                attendance, attendanceDTO.employeeId(), attendanceDTO.verifierId(), storeId
         );
         if (attendance == null) {
             return ResponseEntity.badRequest().build();
@@ -50,11 +50,11 @@ public class AttendanceController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<List<AttendanceDTO>> getAttendanceByEmployeeId(@PathVariable("employeeId") Integer employeeId) {
+    public ResponseEntity<List<AttendanceDTO>> getAttendanceByEmployeeId(@PathVariable("employeeId") Integer employeeId, @PathVariable("storeId") Long storeId) {
         if (employeeId == null) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(attendanceService.getAllAttendanceByEmployeeId(employeeId)
+        return ResponseEntity.ok(attendanceService.getAllAttendanceByEmployeeId(employeeId, storeId)
                 .stream()
                 .map(attendanceMapper::toDTO).collect(Collectors.toList()));
     }

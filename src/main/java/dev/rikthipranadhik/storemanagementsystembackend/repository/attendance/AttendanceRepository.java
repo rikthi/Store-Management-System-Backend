@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
-
+    List<Attendance> findByEmployee_Store_Id(Long storeId);
     List<Attendance> findByEmployeeId(Integer employeeId);
     List<Attendance> findByVerifierId(Integer verifierId);
 }

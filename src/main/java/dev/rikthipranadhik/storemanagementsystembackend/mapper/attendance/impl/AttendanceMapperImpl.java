@@ -30,7 +30,9 @@ public class AttendanceMapperImpl implements AttendanceMapper {
 
         Integer verifierId = null;
         if (attendance != null) {
-            verifierId = attendance.getVerifier().getId();
+            if(attendance.getVerifier() != null) {
+                verifierId = attendance.getVerifier().getId();
+            }
         }
         return new AttendanceDTO(
                 attendance.getId(),
