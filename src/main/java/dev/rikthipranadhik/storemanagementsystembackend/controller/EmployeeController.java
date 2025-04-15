@@ -1,15 +1,17 @@
 package dev.rikthipranadhik.storemanagementsystembackend.controller;
 
-import dev.rikthipranadhik.storemanagementsystembackend.dto.EmployeeDTO;
-import dev.rikthipranadhik.storemanagementsystembackend.entity.Employee;
-import dev.rikthipranadhik.storemanagementsystembackend.mapper.EmployeeMapper;
-import dev.rikthipranadhik.storemanagementsystembackend.service.EmployeeService;
+import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.EmployeeDTO;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.EmployeeMapper;
+import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
-@RequestMapping(path = "employees")
+@RequestMapping(path = "/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -20,7 +22,7 @@ public class EmployeeController {
         this.employeeMapper = employeeMapper;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<EmployeeDTO> listAllEmployees() {
         return employeeService.listAllEmployees()
                 .stream()
@@ -29,12 +31,11 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public EmployeeDTO createEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = employeeService.createEmployee(
-                employeeMapper.fromDTO(employeeDTO)
-        );
-
-        return employeeMapper.toDTO(employee);
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        Employee employee = employeeMapper.fromDTO(employeeDTO);
+        Integer supervisorId = employeeDTO.supervisorId();
+        Employee finalEmployee = employeeService.createEmployee(employee, supervisorId);
+        return ResponseEntity.ok(employeeMapper.toDTO(finalEmployee));
     }
 
 
