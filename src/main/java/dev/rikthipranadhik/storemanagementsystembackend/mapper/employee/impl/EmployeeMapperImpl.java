@@ -2,6 +2,7 @@ package dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.impl;
 
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.EmployeeDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.EmployeeMapper;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         if  (employeeDTO == null) {
             return null;
         }
+        Store store = new Store();
         return new Employee(
                 employeeDTO.id(),
                 employeeDTO.name(),
@@ -22,7 +24,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
                 employeeDTO.dateOfBirth(),
                 employeeDTO.emailAddress(),
                 employeeDTO.address(),
-                null
+                null,
+                store   // new random store set for now. Will be changed in employee service
+
 //              Supervisor is set later in the service
         );
     }
@@ -46,7 +50,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
                 employee.getDateOfBirth(),
                 employee.getEmailAddress(),
                 employee.getAddress(),
-                supervisorId
+                supervisorId,
+                employee.getStore().getId()
         );
     }
 

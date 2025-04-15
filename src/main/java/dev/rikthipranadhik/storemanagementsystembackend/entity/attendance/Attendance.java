@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Attendance {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="attendance_id", updatable = false, nullable = false)
     private Long id;
 

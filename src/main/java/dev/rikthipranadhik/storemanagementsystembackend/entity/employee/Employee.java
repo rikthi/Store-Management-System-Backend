@@ -1,6 +1,7 @@
 package dev.rikthipranadhik.storemanagementsystembackend.entity.employee;
 
 
+import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 @Setter
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name= "Employee_ID", updatable = false, nullable = false)
     private Integer id;
 
@@ -41,15 +42,19 @@ public class Employee {
     private String address;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "Supervisor_ID")
     private Employee supervisor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name="store_id", nullable=false)
+    private Store store;
 
 
     public Employee() {
     }
 
-    public Employee(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor) {
+    public Employee(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor,  Store store) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -58,6 +63,7 @@ public class Employee {
         this.emailAddress = emailAddress;
         this.address = address;
         this.supervisor = supervisor;
+        this.store = store;
 
     }
 

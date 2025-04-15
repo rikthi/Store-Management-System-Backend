@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(path = "/employees")
+@RequestMapping(path = "{storeId}/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -23,18 +23,18 @@ public class EmployeeController {
     }
 
     @GetMapping("")
-    public List<EmployeeDTO> listAllEmployees() {
-        return employeeService.listAllEmployees()
+    public List<EmployeeDTO> listAllEmployees(@PathVariable("storeId") Long storeId) {
+        return employeeService.listAllEmployees(storeId)
                 .stream()
                 .map(employeeMapper::toDTO)
                 .toList();
     }
 
     @PostMapping("/create")
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO, @PathVariable("storeId") Long storeId) {
         Employee employee = employeeMapper.fromDTO(employeeDTO);
         Integer supervisorId = employeeDTO.supervisorId();
-        Employee finalEmployee = employeeService.createEmployee(employee, supervisorId);
+        Employee finalEmployee = employeeService.createEmployee(employee, supervisorId, storeId);
         return ResponseEntity.ok(employeeMapper.toDTO(finalEmployee));
     }
 

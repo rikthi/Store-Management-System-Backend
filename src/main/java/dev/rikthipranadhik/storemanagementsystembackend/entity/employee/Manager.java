@@ -15,7 +15,4 @@ public class Manager extends Employee {
     public Manager() {
     }
 
-    public Manager(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor) {
-        super(id, name, gender, phoneNumber, dateOfBirth, emailAddress, address, supervisor);
-    }
 }

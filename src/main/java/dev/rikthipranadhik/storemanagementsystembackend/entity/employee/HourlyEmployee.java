@@ -20,10 +20,6 @@ public class HourlyEmployee extends Employee {
     public HourlyEmployee() {
     }
 
-    public HourlyEmployee(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor, BigDecimal payScale) {
-        super(id, name, gender, phoneNumber, dateOfBirth, emailAddress, address, supervisor);
-        this.payScale = payScale;
-    }
     public HourlyEmployee(BigDecimal payScale) {
         this.payScale = payScale;
     }

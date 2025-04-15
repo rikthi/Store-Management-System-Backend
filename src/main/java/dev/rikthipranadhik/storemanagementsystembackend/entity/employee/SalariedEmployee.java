@@ -20,11 +20,6 @@ public class SalariedEmployee extends Employee {
     public SalariedEmployee() {
     }
 
-    public SalariedEmployee(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor, BigDecimal salary) {
-        super(id, name, gender, phoneNumber, dateOfBirth, emailAddress, address, supervisor);
-        this.salary = salary;
-    }
-
     public SalariedEmployee(BigDecimal salary) {
         this.salary = salary;
     }

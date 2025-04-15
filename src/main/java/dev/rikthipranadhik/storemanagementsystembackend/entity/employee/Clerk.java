@@ -15,7 +15,4 @@ public class Clerk extends Employee{
     public Clerk() {
     }
 
-    public Clerk(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor) {
-        super(id, name, gender, phoneNumber, dateOfBirth, emailAddress, address, supervisor);
-    }
 }
