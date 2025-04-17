@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Entity
 @Table(name="user")
 @Getter
@@ -15,17 +17,14 @@ public class User {
     @Column(name="user_id")
     private Long id;
 
-    @Column(name= "username")
-    private String username;
-
-    @Column(name= "hashedPassword")
-    private String password;
-
-    @Column
+    @Column(name= "email", nullable = false, unique = true)
     private String email;
 
+    @Column(name= "hashedPassword", nullable = false)
+    private String password;
+
     @OneToOne
-    @JoinColumn(name="employee_id")
+    @JoinColumn(name="employee_id", unique = true)
     private Employee employee;
 
 
@@ -33,12 +32,16 @@ public class User {
 
     }
 
-    public User(Long id,  String username, String password, String email, Employee employee){
+    public User(Long id, String email, String password, Employee employee){
         this.id = id;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.employee = employee;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, password);
     }
 
 
