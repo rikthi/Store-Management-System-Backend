@@ -22,17 +22,17 @@ public class UserController {
     }
 
 
-    @PostMapping("create")
-    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+    @PostMapping("/create")
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         if(userDTO.email().isEmpty() || userDTO.password().isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
          User user = userService.createUser(userMapper.fromDTO(userDTO), userDTO.employeeId());
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userMapper.toDTO(user));
     }
 
     @GetMapping("{employeeId}")
-    public ResponseEntity<User> getUser(@PathVariable("employeeId") Integer employeeId) {
-        return ResponseEntity.ok(userService.getUserByEmployeeId(employeeId));
+    public ResponseEntity<UserDTO> getUser(@PathVariable("employeeId") Integer employeeId) {
+        return ResponseEntity.ok(userMapper.toDTO(userService.getUserByEmployeeId(employeeId)));
     }
 }

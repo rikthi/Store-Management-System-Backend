@@ -13,18 +13,18 @@ import java.util.Objects;
 @Setter
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="user_id")
     private Long id;
 
     @Column(name= "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name= "hashedPassword", nullable = false)
+    @Column(name= "password", nullable = false)
     private String password;
 
     @OneToOne
-    @JoinColumn(name="employee_id", unique = true)
+    @JoinColumn(name="employee_id")
     private Employee employee;
 
 

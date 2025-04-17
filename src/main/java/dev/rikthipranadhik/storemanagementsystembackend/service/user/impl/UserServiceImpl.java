@@ -24,6 +24,10 @@ public class UserServiceImpl implements UserService {
         if (user.getId() != null) {
             throw new IllegalArgumentException("User ID has to be null to create a new user");
         }
+
+        if(userRepository.findByEmail(user.getEmail()).isPresent()){
+            throw new IllegalArgumentException("User email already exists");
+        }
         Employee employee = employeeRepository.findById(employeeId).orElse(null);
         if  (employee == null) {
             return userRepository.save(user);
