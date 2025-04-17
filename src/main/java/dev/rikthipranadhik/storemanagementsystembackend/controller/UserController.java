@@ -1,7 +1,9 @@
 package dev.rikthipranadhik.storemanagementsystembackend.controller;
 
 
+import dev.rikthipranadhik.storemanagementsystembackend.dto.RetOnCall;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.user.UserDTO;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.user.User;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.user.UserMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.user.UserService;
@@ -23,14 +25,22 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<RetOnCall> login(@RequestBody UserDTO userDTO) {
         if(userDTO.email().isEmpty() || userDTO.password().isEmpty()){
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(userMapper.toDTO(
-             userService.login(userDTO.email(), userDTO.password())
-        )
+
+        User user = userService.login(userDTO.email(), userDTO.password());
+        if(user == null){
+            return null;
+        }
+
+        Employee employee = user.getEmployee();
+        RetOnCall retOnCall = new RetOnCall(
+                "MANAGER",
+                employee.getStore().getId()
         );
+        return ResponseEntity.ok(retOnCall);
     }
 
     @PostMapping("/create")
