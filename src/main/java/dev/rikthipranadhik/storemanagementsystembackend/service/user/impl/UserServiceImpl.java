@@ -7,6 +7,8 @@ import dev.rikthipranadhik.storemanagementsystembackend.repository.user.UserRepo
 import dev.rikthipranadhik.storemanagementsystembackend.service.user.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -30,7 +32,10 @@ public class UserServiceImpl implements UserService {
         }
         Employee employee = employeeRepository.findById(employeeId).orElse(null);
         if  (employee == null) {
-            return userRepository.save(user);
+            throw new IllegalArgumentException("Employee with id " + employeeId + " does not exist");
+        }
+        if(!Objects.equals(employee.getEmailAddress(), user.getEmail())){
+            throw new IllegalArgumentException("Email does not match with employee email");
         }
         user.setEmployee(employee);
         return userRepository.save(user);

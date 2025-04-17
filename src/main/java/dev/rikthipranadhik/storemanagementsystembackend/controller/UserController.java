@@ -22,6 +22,17 @@ public class UserController {
     }
 
 
+    @PostMapping("/login")
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
+        if(userDTO.email().isEmpty() || userDTO.password().isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(userMapper.toDTO(
+             userService.login(userDTO.email(), userDTO.password())
+        )
+        );
+    }
+
     @PostMapping("/create")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         if(userDTO.email().isEmpty() || userDTO.password().isEmpty()) {
