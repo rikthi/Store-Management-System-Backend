@@ -18,7 +18,7 @@ public class Store {
     @Column(name= "name", nullable = false)
     private String name;
 
-    @Column
+    @Column(name="address")
     private String address;
 
     public Store(){

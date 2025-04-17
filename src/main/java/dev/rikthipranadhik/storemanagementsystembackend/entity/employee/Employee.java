@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name= "Employee_ID", updatable = false, nullable = false)
+    @Column(name= "employee_id", updatable = false, nullable = false)
     private Integer id;
 
     @Column(name = "Name", nullable = false)
@@ -42,7 +42,7 @@ public class Employee {
     private String address;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Supervisor_ID")
+    @JoinColumn(name = "supervisor_id")
     private Employee supervisor;
 
     @ManyToOne(fetch = FetchType.LAZY)

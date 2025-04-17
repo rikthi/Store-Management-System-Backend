@@ -12,8 +12,11 @@ public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name= "inventory_id")
+    @Column(name= "inventory_id", nullable = false)
     private Long id;
+
+    @Column(name="category")
+    private String Category;
 
 
 }
