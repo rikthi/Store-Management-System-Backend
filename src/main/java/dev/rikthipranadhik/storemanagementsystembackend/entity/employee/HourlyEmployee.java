@@ -1,5 +1,6 @@
 package dev.rikthipranadhik.storemanagementsystembackend.entity.employee;
 
+import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,8 @@ public class HourlyEmployee extends Employee {
     public HourlyEmployee() {
     }
 
-    public HourlyEmployee(BigDecimal payScale) {
+    public HourlyEmployee(Integer id, String name, String gender, String phoneNumber, LocalDate dateOfBirth, String emailAddress, String address, Employee supervisor, Store store, BigDecimal payScale) {
+        super(id, name, gender, phoneNumber, dateOfBirth, emailAddress, address, supervisor, store);
         this.payScale = payScale;
     }
 }

@@ -1,6 +1,9 @@
 package dev.rikthipranadhik.storemanagementsystembackend.service.user.impl;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEmployee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Manager;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.user.User;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.EmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.user.UserRepository;
@@ -44,6 +47,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmployeeId(Integer employeeId) {
         return userRepository.findByEmployeeId(employeeId).orElse(null);
+    }
+
+    @Override
+    public String getEmployeeType(User user){
+        Employee employee = getEmployeeByUser(user);
+        if (employee instanceof Manager) {
+            return "MANAGER";
+        }
+        else if (employee instanceof HourlyEmployee) {
+            return "HOURLY_EMPLOYEE";
+        }
+        else if (employee instanceof SalariedEmployee) {
+            return "SALARIED_EMPLOYEE";
+        }
+        else{
+            return "GENERAL_EMPLOYEE";
+        }
+
+
+        // TODO: Add more types of users
     }
 
     @Override

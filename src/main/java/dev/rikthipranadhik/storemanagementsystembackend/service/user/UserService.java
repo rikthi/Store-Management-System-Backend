@@ -10,4 +10,5 @@ public interface UserService {
     User changeEmail(User user, String email);
     User changePassword(User user, String password);
     User login(String email, String password);
+    String getEmployeeType(User user);
 }

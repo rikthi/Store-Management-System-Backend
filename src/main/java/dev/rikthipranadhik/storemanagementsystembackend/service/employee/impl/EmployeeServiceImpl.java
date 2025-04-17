@@ -1,8 +1,10 @@
 package dev.rikthipranadhik.storemanagementsystembackend.service.employee.impl;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.EmployeeRepository;
+import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.HourlyEmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.store.StoreRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
 import org.springframework.stereotype.Service;
@@ -13,17 +15,25 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
      private final EmployeeRepository employeeRepository;
+     private final HourlyEmployeeRepository hourlyEmployeeRepository;
      private final StoreRepository storeRepository;
 
-     public EmployeeServiceImpl(EmployeeRepository employeeRepository, StoreRepository storeRepository) {
+     public EmployeeServiceImpl(EmployeeRepository employeeRepository, StoreRepository storeRepository, HourlyEmployeeRepository hourlyEmployeeRepository) {
          this.employeeRepository = employeeRepository;
          this.storeRepository = storeRepository;
+         this.hourlyEmployeeRepository = hourlyEmployeeRepository;
      }
 
     @Override
     public List<Employee> listAllEmployees(Long storeId) {
         return employeeRepository.findByStoreId(storeId);
     }
+
+    @Override
+    public HourlyEmployee createHourlyEmployee(HourlyEmployee hourlyEmployee) {
+         return hourlyEmployeeRepository.save(hourlyEmployee);
+    }
+
 
     @Override
     public Employee createEmployee(Employee employee, Integer supervisorId, Long storeId) {
@@ -52,10 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             supervisor = employeeRepository.findById(supervisorId).orElse(null);
         }
 
-
-
-
-        return employeeRepository.save(new Employee(
+        return (new Employee(
                 null,
                 employee.getName(),
                 employee.getGender(),
