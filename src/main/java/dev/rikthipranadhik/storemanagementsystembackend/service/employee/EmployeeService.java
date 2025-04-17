@@ -10,5 +10,5 @@ public interface EmployeeService {
     List<Employee> listAllEmployees(Long storeId);
     Employee createEmployee(Employee employee, Integer supervisorId, Long storeId);
     HourlyEmployee createHourlyEmployee(HourlyEmployee hourlyEmployee);
-
+    Employee getEmployeeById(Long storeId, Integer id);
 }

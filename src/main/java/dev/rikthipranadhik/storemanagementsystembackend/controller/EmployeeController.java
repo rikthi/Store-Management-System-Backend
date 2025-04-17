@@ -1,5 +1,6 @@
 package dev.rikthipranadhik.storemanagementsystembackend.controller;
 
+import dev.rikthipranadhik.storemanagementsystembackend.dto.Params;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.EmployeeDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.HourlyEmployeeDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
@@ -62,5 +63,10 @@ public class EmployeeController {
         return employeeService.createEmployee(employee, supervisorId, storeId);
     }
 
+    @PostMapping("/getEmployee")
+    public  EmployeeDTO getEmployee(@RequestBody Params params , @PathVariable("storeId") Long storeId) {
+
+        return employeeMapper.toDTO(employeeService.getEmployeeById(storeId, params.params()));
+    }
 
 }

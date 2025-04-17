@@ -75,7 +75,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         ));
     }
 
-    public Employee getEmployeeById(Integer id){
+    @Override
+    public Employee getEmployeeById(Long storeId, Integer id){
+
          return employeeRepository.findById(id)
                  .orElseThrow(
                          ()->new IllegalArgumentException("Employee Not Found")
