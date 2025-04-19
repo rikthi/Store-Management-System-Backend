@@ -1,6 +1,7 @@
 package dev.rikthipranadhik.storemanagementsystembackend.repository.employee;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     List<Employee> findByStoreId(Long storeId);
 
     Optional<Employee> findByIdAndStoreId(Integer employeeId, Long storeId);
+
 }

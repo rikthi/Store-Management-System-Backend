@@ -2,9 +2,11 @@ package dev.rikthipranadhik.storemanagementsystembackend.service.employee.impl;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEmployee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.EmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.HourlyEmployeeRepository;
+import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.SalariedEmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.store.StoreRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
 import org.springframework.stereotype.Service;
@@ -16,17 +18,36 @@ public class EmployeeServiceImpl implements EmployeeService {
 
      private final EmployeeRepository employeeRepository;
      private final HourlyEmployeeRepository hourlyEmployeeRepository;
+     private final SalariedEmployeeRepository salariedEmployeeRepository;
      private final StoreRepository storeRepository;
 
-     public EmployeeServiceImpl(EmployeeRepository employeeRepository, StoreRepository storeRepository, HourlyEmployeeRepository hourlyEmployeeRepository) {
+
+     public EmployeeServiceImpl(EmployeeRepository employeeRepository, StoreRepository storeRepository, HourlyEmployeeRepository hourlyEmployeeRepository, SalariedEmployeeRepository salariedEmployeeRepository) {
          this.employeeRepository = employeeRepository;
          this.storeRepository = storeRepository;
          this.hourlyEmployeeRepository = hourlyEmployeeRepository;
+         this.salariedEmployeeRepository = salariedEmployeeRepository;
      }
 
     @Override
     public List<Employee> listAllEmployees(Long storeId) {
         return employeeRepository.findByStoreId(storeId);
+    }
+
+    @Override
+    public SalariedEmployee createSalariedEmployee(SalariedEmployee salariedEmployee) {
+         return salariedEmployeeRepository.save(salariedEmployee);
+    }
+
+
+    @Override
+    public List<SalariedEmployee> listAllSalariedEmployees(Long storeId){
+         return salariedEmployeeRepository.findByStoreId(storeId);
+    }
+
+    @Override
+    public List<HourlyEmployee> listAllHourlyEmployees(Long storeId){
+         return hourlyEmployeeRepository.findByStoreId(storeId);
     }
 
     @Override
