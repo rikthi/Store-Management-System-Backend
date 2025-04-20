@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class ItemMapperImpl implements ItemMapper {
     @Override
     public Item fromDTO(ItemDTO itemDTO) {
+        Inventory inventory = new Inventory();
         return new Item(
           itemDTO.id(),
                 itemDTO.name(),
@@ -17,7 +18,7 @@ public class ItemMapperImpl implements ItemMapper {
                 itemDTO.price(),
                 itemDTO.expirationDate(),
                 itemDTO.discountPercentage(),
-                null, // set later in service layer
+                inventory,// set later in service layer
                 itemDTO.quantity()
         );
     }

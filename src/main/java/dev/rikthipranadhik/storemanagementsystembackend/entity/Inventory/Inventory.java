@@ -42,7 +42,7 @@ public class Inventory {
 
     public Inventory(Long id, String category, Long currentStockLevel, Long minimumStockLevel, Long maximumStockLevel, Store store) {
         this.id = id;
-        category = category;
+        this.category = category;
         this.currentStockLevel = currentStockLevel;
         this.minimumStockLevel = minimumStockLevel;
         this.maximumStockLevel = maximumStockLevel;

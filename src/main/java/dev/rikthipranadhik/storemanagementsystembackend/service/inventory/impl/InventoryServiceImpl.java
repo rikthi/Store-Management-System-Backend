@@ -32,10 +32,6 @@ public class InventoryServiceImpl implements InventoryService {
             throw new IllegalArgumentException("Inventory ID must be null");
         }
 
-        if  (inventory.getStore().getId() == null){
-            throw new IllegalArgumentException("Store ID must not be null");
-        }
-
         Store store = storeRepository.findById(storeId).orElse(null);
         if (store == null){
             throw new IllegalArgumentException("Store doesn't exist");
