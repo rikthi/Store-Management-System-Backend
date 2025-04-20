@@ -18,7 +18,7 @@ public class ManagerMapperImpl implements ManagerMapper {
 
     @Override
     public ManagerDTO toDTO(Manager manager) {
-        EmployeeDTO employeeDTO = new EmployeeDTO(manager.getId(), manager.getName(), manager.getGender(), manager.getPhoneNumber(), manager.getDateOfBirth(), manager.getEmailAddress(),manager.getAddress(), manager.getSupervisor().getId(), manager.getStore().getId());
+        EmployeeDTO employeeDTO = new EmployeeDTO(manager.getId(), manager.getName(), manager.getGender(), manager.getPhoneNumber(), manager.getDateOfBirth(), manager.getEmailAddress(),manager.getAddress(), null, manager.getStore().getId());
         return new ManagerDTO(
                 employeeDTO
         );

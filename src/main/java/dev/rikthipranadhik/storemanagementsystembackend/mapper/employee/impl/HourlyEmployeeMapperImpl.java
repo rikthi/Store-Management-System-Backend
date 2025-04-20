@@ -32,7 +32,11 @@ public class HourlyEmployeeMapperImpl implements HourlyEmployeeMapper {
 
     @Override
     public HourlyEmployeeDTO toDTO(HourlyEmployee hourlyEmployee) {
-        EmployeeDTO employeeDTO = new EmployeeDTO(hourlyEmployee.getId(), hourlyEmployee.getName(), hourlyEmployee.getGender(), hourlyEmployee.getPhoneNumber(), hourlyEmployee.getDateOfBirth(), hourlyEmployee.getEmailAddress(),hourlyEmployee.getAddress(), hourlyEmployee.getSupervisor().getId(), hourlyEmployee.getStore().getId());
+        Integer supervisorId = null;
+        if(hourlyEmployee.getSupervisor() != null){
+            supervisorId = hourlyEmployee.getSupervisor().getId();
+        }
+        EmployeeDTO employeeDTO = new EmployeeDTO(hourlyEmployee.getId(), hourlyEmployee.getName(), hourlyEmployee.getGender(), hourlyEmployee.getPhoneNumber(), hourlyEmployee.getDateOfBirth(), hourlyEmployee.getEmailAddress(),hourlyEmployee.getAddress(), supervisorId, hourlyEmployee.getStore().getId());
         return new HourlyEmployeeDTO(
                 employeeDTO,
                 hourlyEmployee.getPayScale()
