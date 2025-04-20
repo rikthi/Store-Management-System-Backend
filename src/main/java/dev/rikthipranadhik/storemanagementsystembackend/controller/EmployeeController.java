@@ -3,12 +3,15 @@ package dev.rikthipranadhik.storemanagementsystembackend.controller;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.Params;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.EmployeeDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.HourlyEmployeeDTO;
+import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.ManagerDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.SalariedEmployeeDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEmployee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Manager;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.EmployeeMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.HourlyEmployeeMapper;
+import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.ManagerMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.SalariedEmployeeMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +28,14 @@ public class EmployeeController {
     private final EmployeeMapper employeeMapper;
     private final HourlyEmployeeMapper hourlyEmployeeMapper;
     private final SalariedEmployeeMapper salariedEmployeeMapper;
+    private final ManagerMapper managerMapper;
 
-    public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper, HourlyEmployeeMapper hourlyEmployeeMapper, SalariedEmployeeMapper salariedEmployeeMapper) {
+    public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper, HourlyEmployeeMapper hourlyEmployeeMapper, SalariedEmployeeMapper salariedEmployeeMapper, ManagerMapper managerMapper) {
         this.employeeService = employeeService;
         this.employeeMapper = employeeMapper;
         this.hourlyEmployeeMapper = hourlyEmployeeMapper;
         this.salariedEmployeeMapper = salariedEmployeeMapper;
+        this.managerMapper = managerMapper;
     }
 
     @PostMapping("/create/hourlyEmployee")
@@ -92,6 +97,25 @@ public class EmployeeController {
                 .stream()
                 .map(salariedEmployeeMapper::toDTO)
                 .toList();
+    }
+
+    @PostMapping("/create/manager")
+    public ResponseEntity<ManagerDTO> createManager(@RequestBody ManagerDTO managerDTO, @PathVariable("storeId") Long storeId) {
+        EmployeeDTO employeeDTO = managerDTO.employee();
+        Employee employee = createEmployee(employeeDTO, storeId);
+        Manager manager = new Manager(
+                employee.getId(),
+                employee.getName(),
+                employee.getGender(),
+                employee.getPhoneNumber(),
+                employee.getDateOfBirth(),
+                employee.getEmailAddress(),
+                employee.getAddress(),
+                employee.getSupervisor(),
+                employee.getStore()
+        );
+
+        return ResponseEntity.ok(managerMapper.toDTO(employeeService.createManager(manager)));
     }
 
     @PostMapping("/create/salariedEmployee")

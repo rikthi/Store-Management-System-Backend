@@ -3,6 +3,7 @@ package dev.rikthipranadhik.storemanagementsystembackend.service.employee;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEmployee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Manager;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface EmployeeService {
     List<HourlyEmployee> listAllHourlyEmployees(Long storeId);
 
     HourlyEmployee createHourlyEmployee(HourlyEmployee hourlyEmployee);
+
+    Manager createManager(Manager manager);
     Employee getEmployeeById(Long storeId, Integer id);
 }

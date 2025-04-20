@@ -2,10 +2,12 @@ package dev.rikthipranadhik.storemanagementsystembackend.service.employee.impl;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEmployee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Manager;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.EmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.HourlyEmployeeRepository;
+import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.ManagerRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.SalariedEmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.store.StoreRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
@@ -20,14 +22,16 @@ public class EmployeeServiceImpl implements EmployeeService {
      private final HourlyEmployeeRepository hourlyEmployeeRepository;
      private final SalariedEmployeeRepository salariedEmployeeRepository;
      private final StoreRepository storeRepository;
+    private final ManagerRepository managerRepository;
 
 
-     public EmployeeServiceImpl(EmployeeRepository employeeRepository, StoreRepository storeRepository, HourlyEmployeeRepository hourlyEmployeeRepository, SalariedEmployeeRepository salariedEmployeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, StoreRepository storeRepository, HourlyEmployeeRepository hourlyEmployeeRepository, SalariedEmployeeRepository salariedEmployeeRepository, ManagerRepository managerRepository) {
          this.employeeRepository = employeeRepository;
          this.storeRepository = storeRepository;
          this.hourlyEmployeeRepository = hourlyEmployeeRepository;
          this.salariedEmployeeRepository = salariedEmployeeRepository;
-     }
+        this.managerRepository = managerRepository;
+    }
 
     @Override
     public List<Employee> listAllEmployees(Long storeId) {
@@ -53,6 +57,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public HourlyEmployee createHourlyEmployee(HourlyEmployee hourlyEmployee) {
          return hourlyEmployeeRepository.save(hourlyEmployee);
+    }
+
+    @Override
+    public Manager createManager(Manager manager) {
+        return managerRepository.save(manager);
     }
 
 
