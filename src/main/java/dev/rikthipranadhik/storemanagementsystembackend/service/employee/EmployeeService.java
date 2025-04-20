@@ -22,4 +22,7 @@ public interface EmployeeService {
 
     Manager createManager(Manager manager);
     Employee getEmployeeById(Long storeId, Integer id);
+
+    SalariedEmployee getSalariedEmployeeById(Integer id);
+    HourlyEmployee getHourlyEmployeeById(Integer id);
 }

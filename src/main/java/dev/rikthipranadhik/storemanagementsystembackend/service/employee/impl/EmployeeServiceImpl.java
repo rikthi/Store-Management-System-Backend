@@ -114,6 +114,16 @@ public class EmployeeServiceImpl implements EmployeeService {
                  );
     }
 
+    @Override
+    public SalariedEmployee getSalariedEmployeeById(Integer id) {
+        return salariedEmployeeRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public HourlyEmployee getHourlyEmployeeById(Integer id) {
+        return hourlyEmployeeRepository.findById(id).orElse(null);
+    }
+
     public Employee getEmployeeByEmailAddress(String emailAddress){
          return employeeRepository.findByEmailAddress(emailAddress)
                  .orElseThrow(

@@ -138,8 +138,22 @@ public class EmployeeController {
         return ResponseEntity.ok(salariedEmployeeMapper.toDTO(employeeService.createSalariedEmployee(salariedEmployee)));
     }
 
+    @GetMapping("/get/hourlyEmployee/{employeeId}")
+    public ResponseEntity<HourlyEmployeeDTO> getHourlyEmployee(@PathVariable("employeeId") Integer employeeId, @PathVariable("storeId") Long storeId) {
+        if (employeeId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(hourlyEmployeeMapper.toDTO(employeeService.getHourlyEmployeeById(employeeId)));
+    }
 
+    @GetMapping("/get/salariedEmployee/{employeeId}")
+    public ResponseEntity<SalariedEmployeeDTO> getSalariedEmployee(@PathVariable("employeeId") Integer employeeId, @PathVariable("storeId") String storeId){
+        if (employeeId == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
+        return ResponseEntity.ok(salariedEmployeeMapper.toDTO((employeeService.getSalariedEmployeeById(employeeId))));
+    }
 
 
 }
