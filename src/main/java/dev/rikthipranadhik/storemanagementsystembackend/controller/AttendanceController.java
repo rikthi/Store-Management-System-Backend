@@ -62,7 +62,7 @@ public class AttendanceController {
     }
 
     @PutMapping("/punchOut")
-    public ResponseEntity<Long> punchOut(AttendanceEdit attendanceEdit, @PathVariable String storeId) {
+    public ResponseEntity<Long> punchOut(@RequestBody AttendanceEdit attendanceEdit, @PathVariable String storeId) {
         if (attendanceEdit.id() == null || attendanceEdit.punchOutTime() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
