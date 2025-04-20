@@ -19,7 +19,11 @@ public class SalariedEmployeeMapperImpl implements SalariedEmployeeMapper {
 
     @Override
     public SalariedEmployeeDTO toDTO(SalariedEmployee salariedEmployee) {
-        EmployeeDTO employeeDTO = new EmployeeDTO(salariedEmployee.getId(), salariedEmployee.getName(), salariedEmployee.getGender(), salariedEmployee.getPhoneNumber(), salariedEmployee.getDateOfBirth(), salariedEmployee.getEmailAddress(),salariedEmployee.getAddress(), salariedEmployee.getSupervisor().getId(), salariedEmployee.getStore().getId());
+        Integer supervisorId = null;
+        if(salariedEmployee.getSupervisor() != null){
+            supervisorId = salariedEmployee.getSupervisor().getId();
+        }
+        EmployeeDTO employeeDTO = new EmployeeDTO(salariedEmployee.getId(), salariedEmployee.getName(), salariedEmployee.getGender(), salariedEmployee.getPhoneNumber(), salariedEmployee.getDateOfBirth(), salariedEmployee.getEmailAddress(),salariedEmployee.getAddress(), supervisorId, salariedEmployee.getStore().getId());
         return new SalariedEmployeeDTO(
                 employeeDTO,
                 salariedEmployee.getSalary()
