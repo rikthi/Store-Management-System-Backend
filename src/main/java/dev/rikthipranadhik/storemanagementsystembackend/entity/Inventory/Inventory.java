@@ -21,7 +21,7 @@ public class Inventory {
     private Long id;
 
     @Column(name="category", nullable = false)
-    private String Category;
+    private String category;
 
     @Column(name="current_stock_level")
     private Long currentStockLevel;
@@ -42,7 +42,7 @@ public class Inventory {
 
     public Inventory(Long id, String category, Long currentStockLevel, Long minimumStockLevel, Long maximumStockLevel, Store store) {
         this.id = id;
-        Category = category;
+        category = category;
         this.currentStockLevel = currentStockLevel;
         this.minimumStockLevel = minimumStockLevel;
         this.maximumStockLevel = maximumStockLevel;
