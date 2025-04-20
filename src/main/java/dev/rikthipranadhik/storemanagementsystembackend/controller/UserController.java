@@ -4,6 +4,9 @@ package dev.rikthipranadhik.storemanagementsystembackend.controller;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.RetOnCall;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.user.UserDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEmployee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Manager;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.user.User;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.user.UserMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.user.UserService;
@@ -17,6 +20,10 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+    private final String MANAGER_ROLE = "MANAGER";
+    private final String HOURLY_EMPLOYEE_ROLE = "HOURLY_EMPLOYEE";
+    private final String SALARIED_EMPLOYEE_ROLE = "SALARIED_EMPLOYEE";
+
 
     public  UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
@@ -35,10 +42,18 @@ public class UserController {
             return null;
         }
 
-        Employee employee = user.getEmployee();
+        String role ="";
+        if (user.getEmployee() instanceof HourlyEmployee){
+            role = HOURLY_EMPLOYEE_ROLE;
+        } else if (user.getEmployee() instanceof SalariedEmployee) {
+            role = SALARIED_EMPLOYEE_ROLE;
+        } else if (user.getEmployee() instanceof Manager) {
+            role = MANAGER_ROLE;
+        }
+
         RetOnCall retOnCall = new RetOnCall(
-                "MANAGER",
-                employee.getStore().getId()
+                role,
+                user.getEmployee().getStore().getId()
         );
         return ResponseEntity.ok(retOnCall);
     }
