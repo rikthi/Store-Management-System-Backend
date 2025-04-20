@@ -61,7 +61,7 @@ public class AttendanceController {
                 .map(attendanceMapper::toDTO).collect(Collectors.toList()));
     }
 
-    @PostMapping("/punchOut")
+    @PutMapping("/punchOut")
     public ResponseEntity<Long> punchOut(AttendanceEdit attendanceEdit, @PathVariable String storeId) {
         if (attendanceEdit.id() == null || attendanceEdit.punchOutTime() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
