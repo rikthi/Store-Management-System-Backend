@@ -16,9 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 public class InventoryServiceImpl implements InventoryService {
 
-    private InventoryRepository inventoryRepository;
-    private ItemRepository itemRepository;
-    private StoreRepository storeRepository;
+    private final InventoryRepository inventoryRepository;
+    private final ItemRepository itemRepository;
+    private final StoreRepository storeRepository;
 
 
     @Override
