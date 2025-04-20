@@ -20,7 +20,7 @@ public class Inventory {
     @Column(name= "inventory_id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name="category")
+    @Column(name="category", nullable = false)
     private String Category;
 
     @Column(name="current_stock_level")

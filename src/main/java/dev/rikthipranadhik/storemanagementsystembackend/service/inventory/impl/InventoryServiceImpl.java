@@ -48,7 +48,16 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory updateInventory(Inventory inventory) {
-        return null;
+        Inventory oldInventory = inventoryRepository.findById(inventory.getId()).orElse(null);
+
+        if (oldInventory == null){
+            throw new IllegalArgumentException("Inventory doesn't exist");
+        }
+        oldInventory.setCategory(inventory.getCategory());
+        oldInventory.setMinimumStockLevel(inventory.getMinimumStockLevel());
+        oldInventory.setMaximumStockLevel(inventory.getMaximumStockLevel());
+
+        return inventoryRepository.save(oldInventory);
     }
 
     @Override
@@ -75,5 +84,59 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public Inventory getInventoryById(Long inventoryId) {
         return inventoryRepository.findById(inventoryId).orElse(null);
+    }
+
+    @Override
+    public List<Item> listAllItemsInInventory(Inventory inventory) {
+        return itemRepository.findByInventoryId(inventory.getId());
+    }
+
+    @Override
+    public Item addItemToInventory(Inventory inventory, Item item) {
+        Item oldItem = itemRepository.findById(item.getId()).orElse(null);
+        if (oldItem == null){
+            throw new IllegalArgumentException("Item doesn't exist");
+        }
+        oldItem.setInventory(inventory);
+        return itemRepository.save(oldItem);
+    }
+
+    @Override
+    public Item createItem(Item item, Long inventoryId) {
+        if (item.getId() != null){
+            throw new IllegalArgumentException("Item ID must be null");
+        }
+
+        Inventory inventory = inventoryRepository.findById(inventoryId).orElse(null);
+        if (inventory == null){
+            throw new IllegalArgumentException("Inventory doesn't exist");
+        }
+
+        item.setInventory(inventory);
+        return itemRepository.save(item);
+    }
+
+    @Override
+    public Item updateItem(Item item) {
+        Item oldItem = itemRepository.findById(item.getId()).orElse(null);
+        if (oldItem == null){
+            throw new IllegalArgumentException("Item doesn't exist");
+        }
+        oldItem.setName(item.getName());
+        oldItem.setPrice(item.getPrice());
+        oldItem.setQuantity(item.getQuantity());
+        oldItem.setDiscountPercentage(item.getDiscountPercentage());
+        oldItem.setInventory(item.getInventory());
+        return itemRepository.save(oldItem);
+    }
+
+    @Override
+    public void deleteItem(Item item) {
+        itemRepository.delete(item);
+    }
+
+    @Override
+    public Item getItemById(Long itemId) {
+        return itemRepository.findById(itemId).orElse(null);
     }
 }

@@ -4,5 +4,5 @@ import dev.rikthipranadhik.storemanagementsystembackend.entity.Inventory.Invento
 
 import java.time.LocalDate;
 
-public record ItemDTO(Long id, String name, LocalDate manufactureDate, float price, LocalDate expirationDate, float discountPercentage, Inventory inventory, Long quantity) {
+public record ItemDTO(Long id, String name, LocalDate manufactureDate, Float price, LocalDate expirationDate, Float discountPercentage, Long inventoryId, Long quantity) {
 }

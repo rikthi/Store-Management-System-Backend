@@ -1,6 +1,7 @@
 package dev.rikthipranadhik.storemanagementsystembackend.service.inventory;
 
 import dev.rikthipranadhik.storemanagementsystembackend.entity.Inventory.Inventory;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.Inventory.Item;
 
 import java.util.List;
 
@@ -11,5 +12,10 @@ public interface InventoryService {
     void deleteInventory(Inventory inventory);
     Long calculateCurrentStockLevel(Inventory inventory);
     Inventory getInventoryById(Long inventoryId);
-
+    List<Item> listAllItemsInInventory(Inventory inventory);
+    Item addItemToInventory(Inventory inventory, Item item);
+    Item createItem(Item item, Long inventoryId);
+    Item updateItem(Item item);
+    void deleteItem(Item item);
+    Item getItemById(Long itemId);
 }
