@@ -8,6 +8,7 @@ import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.Empl
 import dev.rikthipranadhik.storemanagementsystembackend.service.attendance.AttendanceService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -61,5 +62,16 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public List<Attendance> getAllAttendanceBySupervisorId(Integer verifierId) {
         return attendanceRepository.findByVerifierId(verifierId);
+    }
+
+    @Override
+    public Attendance editAttendance(Long attendanceId, LocalDateTime punchOutTime) {
+        Attendance attendance =  attendanceRepository.findById(attendanceId).orElse(null);
+        if (attendance == null) {
+            throw new IllegalArgumentException("Attendance with id: " + attendanceId + " does not exist");
+        }
+
+        attendance.setPunchOutTime(punchOutTime);
+        return attendanceRepository.save(attendance);
     }
 }

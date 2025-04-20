@@ -1,9 +1,11 @@
 package dev.rikthipranadhik.storemanagementsystembackend.controller;
 
+import dev.rikthipranadhik.storemanagementsystembackend.dto.AttendanceEdit;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.attendance.AttendanceDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.attendance.Attendance;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.attendance.AttendanceMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.attendance.AttendanceService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +34,8 @@ public class AttendanceController {
                 .toList();
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<AttendanceDTO> createAttendance(@RequestBody AttendanceDTO attendanceDTO, @PathVariable("storeId") Long storeId) {
+    @PostMapping("/punchIn")
+    public ResponseEntity<Long> punchIn(@RequestBody AttendanceDTO attendanceDTO, @PathVariable("storeId") Long storeId) {
         Attendance attendance = attendanceMapper.fromDTO(attendanceDTO);
         if (attendanceDTO.employeeId() == null) {
             return ResponseEntity.badRequest().build();
@@ -46,7 +48,7 @@ public class AttendanceController {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(attendanceMapper.toDTO(attendance));
+        return ResponseEntity.ok(attendanceMapper.toDTO(attendance).id());
     }
 
     @GetMapping("/{employeeId}")
@@ -58,5 +60,15 @@ public class AttendanceController {
                 .stream()
                 .map(attendanceMapper::toDTO).collect(Collectors.toList()));
     }
+
+    @PostMapping("/punchOut")
+    public ResponseEntity<Long> punchOut(AttendanceEdit attendanceEdit, @PathVariable String storeId) {
+        if (attendanceEdit.id() == null || attendanceEdit.punchOutTime() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(attendanceService.editAttendance(attendanceEdit.id(), attendanceEdit.punchOutTime()).getId());
+    }
+
+
 
 }
