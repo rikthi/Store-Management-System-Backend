@@ -7,6 +7,7 @@ import dev.rikthipranadhik.storemanagementsystembackend.mapper.inventory.Invento
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.inventory.ItemMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.inventory.InventoryService;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,14 @@ public class InventoryController {
         );
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<InventoryDTO>  createInventory(@PathVariable("storeId") Long storeId, @RequestBody InventoryDTO inventoryDTO) {
+        Inventory inventory = inventoryService.createInventory(inventoryMapper.fromDTO(inventoryDTO), storeId);
+        if (inventory == null) {
+
+        }
+        return ResponseEntity.ok(inventoryMapper.toDTO(inventory));
+    }
 
 
 }
