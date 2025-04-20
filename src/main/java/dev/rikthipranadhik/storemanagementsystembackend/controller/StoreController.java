@@ -42,7 +42,7 @@ public class StoreController {
         );
     }
 
-    @DeleteMapping("/{storeId}")
+    @DeleteMapping("/delete/{storeId}")
     public ResponseEntity<String> deleteStore(@PathVariable("storeId") Long storeId) {
         Boolean deleted = storeService.deleteStore(storeId);
         if (deleted) {
