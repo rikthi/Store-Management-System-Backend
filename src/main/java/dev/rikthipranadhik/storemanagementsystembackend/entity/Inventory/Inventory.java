@@ -13,8 +13,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="Inventory")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Inventory {
 
     @Id
@@ -39,5 +37,15 @@ public class Inventory {
     @JoinColumn(name= "store_id", nullable=false)
     private Store store;
 
+    public Inventory() {
+    }
 
+    public Inventory(Long id, String category, Long currentStockLevel, Long minimumStockLevel, Long maximumStockLevel, Store store) {
+        this.id = id;
+        Category = category;
+        this.currentStockLevel = currentStockLevel;
+        this.minimumStockLevel = minimumStockLevel;
+        this.maximumStockLevel = maximumStockLevel;
+        this.store = store;
+    }
 }

@@ -15,8 +15,6 @@ import java.time.LocalDate;
 @Table(name="item")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -46,5 +44,17 @@ public class Item {
     @JoinColumn(name="inventory_id")
     private Inventory inventory;
 
+    public Item() {
+    }
 
+    public Item(Long id, String name, LocalDate manufactureDate, float price, LocalDate expirationDate, float discountPercentage, Inventory inventory, Long quantity) {
+        this.id = id;
+        this.name = name;
+        this.manufactureDate = manufactureDate;
+        this.price = price;
+        this.expirationDate = expirationDate;
+        this.discountPercentage = discountPercentage;
+        this.inventory = inventory;
+        this.quantity = quantity;
+    }
 }
