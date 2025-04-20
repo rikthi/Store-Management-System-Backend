@@ -65,10 +65,10 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public Attendance editAttendance(Long attendanceId, LocalDateTime punchOutTime) {
-        Attendance attendance =  attendanceRepository.findById(attendanceId).orElse(null);
+    public Attendance editAttendance(Integer employeeId, LocalDateTime punchOutTime) {
+        Attendance attendance =  attendanceRepository.findTopByEmployeeIdOrderByPunchInTimeDesc(employeeId).orElse(null);
         if (attendance == null) {
-            throw new IllegalArgumentException("Attendance with id: " + attendanceId + " does not exist");
+            throw new IllegalArgumentException("Attendance does not exist");
         }
 
         attendance.setPunchOutTime(punchOutTime);

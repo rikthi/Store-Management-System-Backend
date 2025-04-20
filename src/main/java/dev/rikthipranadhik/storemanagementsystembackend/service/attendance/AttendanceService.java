@@ -11,5 +11,5 @@ public interface AttendanceService {
     List<Attendance> getAllAttendanceByEmployeeId(Integer employeeId, Long storeId);
     List<Attendance> getAllAttendanceBySupervisorId(Integer supervisorId);
 
-    Attendance editAttendance(Long attendanceId, LocalDateTime punchOutTime);
+    Attendance editAttendance(Integer employeeId, LocalDateTime punchOutTime);
 }

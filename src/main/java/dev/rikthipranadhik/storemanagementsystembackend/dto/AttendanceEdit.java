@@ -2,6 +2,6 @@ package dev.rikthipranadhik.storemanagementsystembackend.dto;
 
 import java.time.LocalDateTime;
 
-public record AttendanceEdit(Long id, LocalDateTime punchOutTime) {
+public record AttendanceEdit(Integer id, LocalDateTime punchOutTime) {
 
 }
