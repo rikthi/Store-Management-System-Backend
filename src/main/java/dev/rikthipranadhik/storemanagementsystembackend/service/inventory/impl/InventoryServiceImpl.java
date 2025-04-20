@@ -41,6 +41,10 @@ public class InventoryServiceImpl implements InventoryService {
             throw new IllegalArgumentException("Store doesn't exist");
         }
 
+        if (inventoryRepository.findByStoreAndCategory(store, inventory.getCategory())!= null){
+            throw new IllegalArgumentException("Inventory with this category name already exists");
+        }
+
         inventory.setStore(store);
 
         return inventoryRepository.save(inventory);
