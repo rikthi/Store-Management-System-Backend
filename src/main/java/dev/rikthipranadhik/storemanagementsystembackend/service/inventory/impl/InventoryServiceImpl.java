@@ -120,7 +120,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public Item updateItem(Item item) {
+    public Item updateItem(Item item, Long inventoryId) {
         Item oldItem = itemRepository.findById(item.getId()).orElse(null);
         if (oldItem == null){
             throw new IllegalArgumentException("Item doesn't exist");
@@ -129,7 +129,11 @@ public class InventoryServiceImpl implements InventoryService {
         oldItem.setPrice(item.getPrice());
         oldItem.setQuantity(item.getQuantity());
         oldItem.setDiscountPercentage(item.getDiscountPercentage());
-        oldItem.setInventory(item.getInventory());
+        Inventory inventory = inventoryRepository.findById(inventoryId).orElse(null);
+        if (inventory == null){
+            throw new IllegalArgumentException("New inventory for item doesn't exist");
+        }
+        oldItem.setInventory(inventory);
         calculateCurrentStockLevel(oldItem.getInventory());
         return itemRepository.save(oldItem);
     }
