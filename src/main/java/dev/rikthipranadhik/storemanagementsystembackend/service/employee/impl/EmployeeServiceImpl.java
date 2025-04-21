@@ -6,6 +6,7 @@ import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Manager;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.user.User;
+import dev.rikthipranadhik.storemanagementsystembackend.repository.attendance.AttendanceRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.EmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.HourlyEmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.ManagerRepository;
@@ -28,6 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      private final StoreRepository storeRepository;
      private final ManagerRepository managerRepository;
      private final UserRepository userRepository;
+     private final AttendanceRepository attendanceRepository;
 
 
 
@@ -178,8 +180,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(Integer employeeId) {
         userRepository.findByEmployeeId(employeeId).ifPresent(userRepository::delete);
+        attendanceRepository.deleteByEmployeeId(employeeId);
         employeeRepository.deleteById(employeeId);
-    }
+}
 
     public Employee getEmployeeByEmailAddress(String emailAddress){
          return employeeRepository.findByEmailAddress(emailAddress)

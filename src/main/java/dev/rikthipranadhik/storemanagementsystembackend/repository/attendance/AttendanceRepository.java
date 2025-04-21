@@ -14,4 +14,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     List<Attendance> findByEmployeeId(Integer employeeId);
     List<Attendance> findByVerifierId(Integer verifierId);
     Optional<Attendance> findTopByEmployeeIdOrderByPunchInTimeDesc(Integer employeeId);
+
+    void deleteByEmployeeId(Integer employeeId);
 }
