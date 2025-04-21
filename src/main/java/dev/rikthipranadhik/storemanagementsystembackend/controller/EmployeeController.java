@@ -148,7 +148,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/get/salariedEmployee/{employeeId}")
-    public ResponseEntity<SalariedEmployeeDTO> getSalariedEmployee(@PathVariable("employeeId") Integer employeeId, @PathVariable("storeId") String storeId){
+    public ResponseEntity<SalariedEmployeeDTO> getSalariedEmployee(@PathVariable("employeeId") Integer employeeId, @PathVariable("storeId") Long storeId){
         if (employeeId == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -167,7 +167,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("delete/{employeeId}")
-    public ResponseEntity<String>  deleteEmployee(@PathVariable("employeeId") Integer employeeId, @PathVariable String storeId) {
+    public ResponseEntity<String>  deleteEmployee(@PathVariable("employeeId") Integer employeeId, @PathVariable Long storeId) {
         employeeService.deleteEmployee(employeeId);
         return new ResponseEntity<>("Employee deleted successfully", HttpStatus.OK);
     }

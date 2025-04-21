@@ -17,9 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-    private CustomerRepository customerRepository;
-    private StoreRepository storeRepository;
-    private ReceiptRepository receiptRepository;
+    private final CustomerRepository customerRepository;
+    private final StoreRepository storeRepository;
+    private final ReceiptRepository receiptRepository;
 
     @Override
     public Customer createCustomer(Customer customer, Long storeId) {

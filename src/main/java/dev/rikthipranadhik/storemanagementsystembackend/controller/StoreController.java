@@ -50,4 +50,10 @@ public class StoreController {
         }
         return new ResponseEntity<>("Store not deleted", HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/get/{storeId}")
+    public ResponseEntity<StoreDTO> getStore(@PathVariable("storeId") Long storeId) {
+        return ResponseEntity.ok(storeMapper.toDTO(storeService.getStore(storeId)));
+    }
+
 }

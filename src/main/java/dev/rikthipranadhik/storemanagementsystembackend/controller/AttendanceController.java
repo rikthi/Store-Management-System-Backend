@@ -62,7 +62,7 @@ public class AttendanceController {
     }
 
     @PutMapping("/punchOut")
-    public ResponseEntity<Long> punchOut(@RequestBody AttendanceEdit attendanceEdit, @PathVariable String storeId) {
+    public ResponseEntity<Long> punchOut(@RequestBody AttendanceEdit attendanceEdit, @PathVariable Long storeId) {
         if (attendanceEdit.id() == null || attendanceEdit.punchOutTime() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -70,7 +70,7 @@ public class AttendanceController {
     }
 
     @PutMapping("verify")
-    public ResponseEntity<AttendanceDTO> verify(@RequestBody AttendanceDTO attendanceDTO, @PathVariable String storeId) {
+    public ResponseEntity<AttendanceDTO> verify(@RequestBody AttendanceDTO attendanceDTO, @PathVariable Long storeId) {
         return ResponseEntity.ok(attendanceMapper.toDTO(attendanceService.verify(attendanceMapper.fromDTO(attendanceDTO))));
     }
 

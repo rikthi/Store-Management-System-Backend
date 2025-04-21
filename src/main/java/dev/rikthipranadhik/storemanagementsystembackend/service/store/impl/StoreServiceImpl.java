@@ -42,4 +42,9 @@ public class StoreServiceImpl implements StoreService {
         storeRepository.deleteById(storeId);
         return true;
     }
+
+    @Override
+    public Store getStore(Long storeId) {
+        return storeRepository.findById(storeId).orElse(null);
+    }
 }
