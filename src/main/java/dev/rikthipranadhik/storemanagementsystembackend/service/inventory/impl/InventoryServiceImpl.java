@@ -7,6 +7,7 @@ import dev.rikthipranadhik.storemanagementsystembackend.repository.inventory.Inv
 import dev.rikthipranadhik.storemanagementsystembackend.repository.inventory.ItemRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.store.StoreRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.inventory.InventoryService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +63,9 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public void deleteInventory(Inventory inventory) {
+        itemRepository.deleteByInventoryId(inventory.getId());
         inventoryRepository.delete(inventory);
     }
 
@@ -143,6 +146,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public void deleteItem(Long itemId) {
         Item item = itemRepository.findById(itemId).orElse(null);
         if (item == null){

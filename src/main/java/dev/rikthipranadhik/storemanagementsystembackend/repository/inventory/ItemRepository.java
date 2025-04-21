@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByInventoryId(Long id);
+    void deleteByInventoryId(Long id);
 }

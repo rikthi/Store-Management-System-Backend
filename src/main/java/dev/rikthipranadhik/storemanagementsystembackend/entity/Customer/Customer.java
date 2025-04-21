@@ -18,7 +18,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="customer_id", nullable = false, unique = true)
-    private long id;
+    private Long id;
 
     @Column(name="customer_name")
     private String name;
@@ -26,7 +26,7 @@ public class Customer {
     @Column(name="email", unique = true)
     private String email;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name="membership_type")
     private Membership membershipType;
 
@@ -40,7 +40,7 @@ public class Customer {
 
     }
 
-    public Customer(long id, String name, String email, Membership membershipType, Store store) {
+    public Customer(Long id, String name, String email, Membership membershipType, Store store) {
         this.id = id;
         this.name = name;
         this.email = email;
