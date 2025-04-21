@@ -79,6 +79,7 @@ public class InventoryServiceImpl implements InventoryService {
         }
 
         inventory.setCurrentStockLevel(sum);
+        inventoryRepository.save(inventory);
         return sum;
     }
 
