@@ -22,7 +22,7 @@ public class Attendance {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="employee_id", nullable = false)
     private Employee employee;
 
