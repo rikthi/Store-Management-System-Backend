@@ -77,6 +77,11 @@ public class InventoryController {
         return ResponseEntity.ok(itemMapper.toDTO(inventoryService.updateItem(itemMapper.fromDTO(itemDTO), itemDTO.inventoryId())));
     }
 
+    @PutMapping("/updateInventory")
+    public ResponseEntity<InventoryDTO> updateInventory(@RequestBody InventoryDTO inventoryDTO, @PathVariable String storeId) {
+        return ResponseEntity.ok(inventoryMapper.toDTO(inventoryService.updateInventory(inventoryMapper.fromDTO(inventoryDTO))));
+    }
+
 
 
 }
