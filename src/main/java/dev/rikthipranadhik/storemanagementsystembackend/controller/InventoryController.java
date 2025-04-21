@@ -32,7 +32,7 @@ public class InventoryController {
         );
     }
 
-    @GetMapping("/{inventoryId}")
+    @GetMapping("/{inventoryId}/get")
     public ResponseEntity<InventoryDTO> getInventory(@PathVariable("storeId") Long storeId, @PathVariable("inventoryId") Long inventoryId) {
         return ResponseEntity.ok(inventoryMapper.toDTO(inventoryService.getInventoryById(inventoryId)));
     }
@@ -67,10 +67,16 @@ public class InventoryController {
         )));
     }
 
+    @GetMapping("items/{itemId}")
+    public ResponseEntity<ItemDTO> getItem(@PathVariable("storeId") Long s, @PathVariable("itemId") Long itemId) {
+        return ResponseEntity.ok(itemMapper.toDTO(inventoryService.getItemById(itemId)));
+    }
+
     @PutMapping("/updateItem")
     public ResponseEntity<ItemDTO> updateItem(@RequestBody ItemDTO itemDTO, @PathVariable String storeId){
         return ResponseEntity.ok(itemMapper.toDTO(inventoryService.updateItem(itemMapper.fromDTO(itemDTO), itemDTO.inventoryId())));
     }
+
 
 
 }
