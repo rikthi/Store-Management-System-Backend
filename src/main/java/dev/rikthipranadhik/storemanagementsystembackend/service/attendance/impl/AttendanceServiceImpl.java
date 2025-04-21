@@ -74,4 +74,14 @@ public class AttendanceServiceImpl implements AttendanceService {
         attendance.setPunchOutTime(punchOutTime);
         return attendanceRepository.save(attendance);
     }
+
+    @Override
+    public Attendance verify(Attendance attendance){
+        Attendance storedAttendance = attendanceRepository.findById(attendance.getId()).orElse(null);
+        if (storedAttendance == null) {
+            throw new IllegalArgumentException("Attendance does not exist");
+        }
+        storedAttendance.setIsVerified(attendance.getIsVerified());
+        return attendanceRepository.save(storedAttendance);
+    }
 }

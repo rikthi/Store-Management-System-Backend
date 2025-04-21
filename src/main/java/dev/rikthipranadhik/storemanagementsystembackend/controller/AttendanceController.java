@@ -69,6 +69,11 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceService.editAttendance(attendanceEdit.id(), attendanceEdit.punchOutTime()).getId());
     }
 
+    @PutMapping("verify")
+    public ResponseEntity<AttendanceDTO> verify(@RequestBody AttendanceDTO attendanceDTO, @PathVariable String storeId) {
+        return ResponseEntity.ok(attendanceMapper.toDTO(attendanceService.verify(attendanceMapper.fromDTO(attendanceDTO))));
+    }
+
 
 
 

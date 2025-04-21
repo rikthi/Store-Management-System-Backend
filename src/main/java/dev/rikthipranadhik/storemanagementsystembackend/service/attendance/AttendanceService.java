@@ -12,4 +12,6 @@ public interface AttendanceService {
     List<Attendance> getAllAttendanceBySupervisorId(Integer supervisorId);
 
     Attendance editAttendance(Integer employeeId, LocalDateTime punchOutTime);
+
+    Attendance verify(Attendance attendance);
 }
