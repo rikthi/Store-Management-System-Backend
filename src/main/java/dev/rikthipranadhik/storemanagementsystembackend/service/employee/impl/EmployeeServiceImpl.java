@@ -126,7 +126,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public HourlyEmployee updateHourlyEmployee(HourlyEmployee hourlyEmployee) {
-        return null;
+        HourlyEmployee savedEmployee = hourlyEmployeeRepository.findById(hourlyEmployee.getId()).orElse(null);
+
+        if (savedEmployee == null){
+            throw new IllegalArgumentException("Employee Not Found");
+        }
+
+        savedEmployee.setName(hourlyEmployee.getName());
+        savedEmployee.setGender(hourlyEmployee.getGender());
+        savedEmployee.setPhoneNumber(hourlyEmployee.getPhoneNumber());
+        savedEmployee.setDateOfBirth(hourlyEmployee.getDateOfBirth());
+        savedEmployee.setEmailAddress(hourlyEmployee.getEmailAddress());
+        savedEmployee.setAddress(hourlyEmployee.getAddress());
+        savedEmployee.setPayScale(hourlyEmployee.getPayScale());
+
+        return hourlyEmployeeRepository.save(savedEmployee);
     }
 
     @Override
@@ -154,8 +168,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployee(Employee employee) {
-
+    public void deleteEmployee(Integer employeeId) {
+        employeeRepository.deleteById(employeeId);
     }
 
     public Employee getEmployeeByEmailAddress(String emailAddress){

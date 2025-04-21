@@ -14,6 +14,7 @@ import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.HourlyEm
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.ManagerMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.SalariedEmployeeMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -160,5 +161,15 @@ public class EmployeeController {
         return ResponseEntity.ok(salariedEmployeeMapper.toDTO(employeeService.updateSalariedEmployee(salariedEmployeeMapper.fromDTO(salariedEmployeeDTO))));
     }
 
+    @PutMapping("/update/hourlyEmployee")
+    public ResponseEntity<HourlyEmployeeDTO> updateHourlyEmployee(@RequestBody HourlyEmployeeDTO hourlyEmployeeDTO, @PathVariable Long storeId) {
+        return ResponseEntity.ok(hourlyEmployeeMapper.toDTO(employeeService.updateHourlyEmployee(hourlyEmployeeMapper.fromDTO(hourlyEmployeeDTO))));
+    }
+
+    @DeleteMapping("delete/{employeeId}")
+    public ResponseEntity<String>  deleteEmployee(@PathVariable("employeeId") Integer employeeId, @PathVariable String storeId) {
+        employeeService.deleteEmployee(employeeId);
+        return new ResponseEntity<>("Employee deleted successfully", HttpStatus.OK);
+    }
 
 }
