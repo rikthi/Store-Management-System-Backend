@@ -4,6 +4,8 @@ import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Objects;
 
@@ -24,6 +26,7 @@ public class User {
     private String password;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="employee_id")
     private Employee employee;
 
