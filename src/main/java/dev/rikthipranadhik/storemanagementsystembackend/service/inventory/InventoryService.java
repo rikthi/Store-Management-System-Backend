@@ -16,6 +16,6 @@ public interface InventoryService {
     Item addItemToInventory(Inventory inventory, Item item);
     Item createItem(Item item, Long inventoryId);
     Item updateItem(Item item, Long inventoryId);
-    void deleteItem(Item item);
+    void deleteItem(Long itemId);
     Item getItemById(Long itemId);
 }

@@ -143,7 +143,11 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public void deleteItem(Item item) {
+    public void deleteItem(Long itemId) {
+        Item item = itemRepository.findById(itemId).orElse(null);
+        if (item == null){
+            throw new IllegalArgumentException("Item doesn't exist");
+        }
         Inventory inventory = item.getInventory();
         itemRepository.delete(item);
         calculateCurrentStockLevel(inventory);

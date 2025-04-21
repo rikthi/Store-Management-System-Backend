@@ -67,7 +67,7 @@ public class InventoryController {
         )));
     }
 
-    @GetMapping("items/{itemId}")
+    @GetMapping("items/{itemId}/get")
     public ResponseEntity<ItemDTO> getItem(@PathVariable("storeId") Long s, @PathVariable("itemId") Long itemId) {
         return ResponseEntity.ok(itemMapper.toDTO(inventoryService.getItemById(itemId)));
     }
@@ -82,6 +82,10 @@ public class InventoryController {
         return ResponseEntity.ok(inventoryMapper.toDTO(inventoryService.updateInventory(inventoryMapper.fromDTO(inventoryDTO))));
     }
 
-
+    @DeleteMapping("items/{itemId}/delete")
+    public ResponseEntity<String>  deleteItem(@PathVariable("storeId") Long s, @PathVariable("itemId") Long itemId) {
+        inventoryService.deleteItem(itemId);
+        return ResponseEntity.ok("Item deleted");
+    }
 
 }
