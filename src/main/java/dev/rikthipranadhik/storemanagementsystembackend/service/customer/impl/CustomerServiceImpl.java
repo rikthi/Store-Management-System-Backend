@@ -7,6 +7,7 @@ import dev.rikthipranadhik.storemanagementsystembackend.repository.customer.Cust
 import dev.rikthipranadhik.storemanagementsystembackend.repository.customer.ReceiptRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.store.StoreRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.customer.CustomerService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,22 +34,37 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer updateCustomer(Customer customer) {
-        return null;
+        Customer oldCustomer =  customerRepository.findById(customer.getId()).orElseThrow(()-> new IllegalArgumentException("Customer ID not found"));
+        oldCustomer.setName(customer.getName());
+        oldCustomer.setEmail(customer.getEmail());
+        oldCustomer.setMembershipType(customer.getMembershipType());
+
+        return customerRepository.save(oldCustomer);
     }
 
     @Override
+    @Transactional
     public void deleteCustomer(Long customerId) {
-
+        receiptRepository.deleteByCustomerId(customerId);
+        customerRepository.deleteById(customerId);
     }
 
     @Override
     public List<Customer> listAllCustomers(Long storeId) {
-        return List.of();
+        return customerRepository.findByStoreId(storeId);
     }
 
     @Override
     public Receipt createReceipt(Receipt receipt, Long customerId) {
-        return null;
+        if (receipt.getId() != null){
+            throw new IllegalArgumentException("Receipt ID must be null");
+        }
+
+        Customer customer = customerRepository.findById(customerId).orElseThrow(()-> new IllegalArgumentException("Customer ID not found"));
+
+        receipt.setCustomer(customer);
+
+        return receiptRepository.save(receipt);
     }
 
     @Override
@@ -57,17 +73,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteReceipt(Long customerId) {
-
+    public void deleteReceipt(Long receiptId) {
+        receiptRepository.deleteByCustomerId(receiptId);
     }
 
     @Override
     public List<Receipt> listAllReceipts(Long storeId) {
-        return List.of();
+        return receiptRepository.findByCustomer_Store_Id(storeId);
     }
 
     @Override
     public List<Receipt> listReceiptsByCustomerId(Long customerId) {
-        return List.of();
+        return receiptRepository.findByCustomerId(customerId);
     }
 }

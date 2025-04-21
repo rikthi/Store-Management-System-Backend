@@ -12,7 +12,7 @@ public interface CustomerService {
     List<Customer> listAllCustomers(Long storeId);
     Receipt createReceipt(Receipt receipt, Long customerId);
     Receipt updateReceipt(Receipt receipt);
-    void deleteReceipt(Long customerId);
+    void deleteReceipt(Long receiptId);
     List<Receipt> listAllReceipts(Long storeId);
     List<Receipt> listReceiptsByCustomerId(Long customerId);
 }
