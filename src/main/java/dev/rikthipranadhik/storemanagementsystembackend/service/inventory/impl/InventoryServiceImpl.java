@@ -100,8 +100,9 @@ public class InventoryServiceImpl implements InventoryService {
             throw new IllegalArgumentException("Item doesn't exist");
         }
         oldItem.setInventory(inventory);
+        Item savedItem = itemRepository.save(oldItem);
         calculateCurrentStockLevel(inventory);
-        return itemRepository.save(oldItem);
+        return savedItem;
     }
 
     @Override
@@ -116,8 +117,9 @@ public class InventoryServiceImpl implements InventoryService {
         }
 
         item.setInventory(inventory);
-        calculateCurrentStockLevel(inventory);
-        return itemRepository.save(item);
+        Item savedItem = itemRepository.save(item);
+        calculateCurrentStockLevel(savedItem.getInventory());
+        return savedItem;
     }
 
     @Override
@@ -135,8 +137,9 @@ public class InventoryServiceImpl implements InventoryService {
             throw new IllegalArgumentException("New inventory for item doesn't exist");
         }
         oldItem.setInventory(inventory);
-        calculateCurrentStockLevel(oldItem.getInventory());
-        return itemRepository.save(oldItem);
+        Item savedItem =  itemRepository.save(oldItem);
+        calculateCurrentStockLevel(savedItem.getInventory());
+        return savedItem;
     }
 
     @Override
