@@ -25,4 +25,11 @@ public interface EmployeeService {
 
     SalariedEmployee getSalariedEmployeeById(Integer id);
     HourlyEmployee getHourlyEmployeeById(Integer id);
+
+    HourlyEmployee updateHourlyEmployee(HourlyEmployee hourlyEmployee);
+    SalariedEmployee updateSalariedEmployee(SalariedEmployee salariedEmployee);
+
+    Manager updateManager(Manager manager);
+
+    void deleteEmployee(Employee employee);
 }

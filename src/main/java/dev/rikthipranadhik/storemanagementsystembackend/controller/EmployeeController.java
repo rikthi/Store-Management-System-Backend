@@ -155,5 +155,10 @@ public class EmployeeController {
         return ResponseEntity.ok(salariedEmployeeMapper.toDTO((employeeService.getSalariedEmployeeById(employeeId))));
     }
 
+    @PutMapping("/update/salariedEmployee")
+    public ResponseEntity<SalariedEmployeeDTO> updateSalariedEmployee(@RequestBody SalariedEmployeeDTO salariedEmployeeDTO, @PathVariable Long storeId) {
+        return ResponseEntity.ok(salariedEmployeeMapper.toDTO(employeeService.updateSalariedEmployee(salariedEmployeeMapper.fromDTO(salariedEmployeeDTO))));
+    }
+
 
 }

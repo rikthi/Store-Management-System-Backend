@@ -4,7 +4,10 @@ package dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.impl;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.EmployeeDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.HourlyEmployeeDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.employee.SalariedEmployeeDTO;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Employee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.employee.SalariedEmployeeMapper;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +17,20 @@ public class SalariedEmployeeMapperImpl implements SalariedEmployeeMapper {
 
     @Override
     public SalariedEmployee fromDTO(SalariedEmployeeDTO salariedEmployeeDTO) {
-        return null;
+        EmployeeDTO employee = salariedEmployeeDTO.employee();
+        Store store = new Store();
+        return new SalariedEmployee(
+                employee.id(),
+                employee.name(),
+                employee.gender(),
+                employee.phoneNumber(),
+                employee.dateOfBirth(),
+                employee.emailAddress(),
+                employee.address(),
+                null,
+                store,
+                salariedEmployeeDTO.salary()
+        );
     }
 
     @Override
