@@ -42,6 +42,7 @@ public class InventoryServiceImpl implements InventoryService {
         }
 
         inventory.setStore(store);
+        inventory.setCurrentStockLevel(0L);
 
         return inventoryRepository.save(inventory);
     }
@@ -98,6 +99,7 @@ public class InventoryServiceImpl implements InventoryService {
             throw new IllegalArgumentException("Item doesn't exist");
         }
         oldItem.setInventory(inventory);
+        calculateCurrentStockLevel(inventory);
         return itemRepository.save(oldItem);
     }
 
@@ -113,6 +115,7 @@ public class InventoryServiceImpl implements InventoryService {
         }
 
         item.setInventory(inventory);
+        calculateCurrentStockLevel(inventory);
         return itemRepository.save(item);
     }
 
@@ -127,12 +130,15 @@ public class InventoryServiceImpl implements InventoryService {
         oldItem.setQuantity(item.getQuantity());
         oldItem.setDiscountPercentage(item.getDiscountPercentage());
         oldItem.setInventory(item.getInventory());
+        calculateCurrentStockLevel(oldItem.getInventory());
         return itemRepository.save(oldItem);
     }
 
     @Override
     public void deleteItem(Item item) {
+        Inventory inventory = item.getInventory();
         itemRepository.delete(item);
+        calculateCurrentStockLevel(inventory);
     }
 
     @Override
