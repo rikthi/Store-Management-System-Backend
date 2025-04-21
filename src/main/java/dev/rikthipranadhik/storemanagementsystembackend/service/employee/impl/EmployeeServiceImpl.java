@@ -5,33 +5,31 @@ import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.HourlyEm
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.Manager;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.employee.SalariedEmployee;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.user.User;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.EmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.HourlyEmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.ManagerRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.SalariedEmployeeRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.store.StoreRepository;
+import dev.rikthipranadhik.storemanagementsystembackend.repository.user.UserRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
      private final EmployeeRepository employeeRepository;
      private final HourlyEmployeeRepository hourlyEmployeeRepository;
      private final SalariedEmployeeRepository salariedEmployeeRepository;
      private final StoreRepository storeRepository;
-    private final ManagerRepository managerRepository;
+     private final ManagerRepository managerRepository;
+     private final UserRepository userRepository;
 
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, StoreRepository storeRepository, HourlyEmployeeRepository hourlyEmployeeRepository, SalariedEmployeeRepository salariedEmployeeRepository, ManagerRepository managerRepository) {
-         this.employeeRepository = employeeRepository;
-         this.storeRepository = storeRepository;
-         this.hourlyEmployeeRepository = hourlyEmployeeRepository;
-         this.salariedEmployeeRepository = salariedEmployeeRepository;
-        this.managerRepository = managerRepository;
-    }
 
     @Override
     public List<Employee> listAllEmployees(Long storeId) {
@@ -137,6 +135,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         savedEmployee.setPhoneNumber(hourlyEmployee.getPhoneNumber());
         savedEmployee.setDateOfBirth(hourlyEmployee.getDateOfBirth());
         savedEmployee.setEmailAddress(hourlyEmployee.getEmailAddress());
+        User user = userRepository.findByEmployeeId(savedEmployee.getId()).orElse(null);
+        if(user != null){
+            user.setEmail(savedEmployee.getEmailAddress());
+            userRepository.save(user);
+        }
         savedEmployee.setAddress(hourlyEmployee.getAddress());
         savedEmployee.setPayScale(hourlyEmployee.getPayScale());
 
@@ -156,6 +159,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         savedEmployee.setPhoneNumber(salariedEmployee.getPhoneNumber());
         savedEmployee.setDateOfBirth(salariedEmployee.getDateOfBirth());
         savedEmployee.setEmailAddress(salariedEmployee.getEmailAddress());
+        User user = userRepository.findByEmployeeId(savedEmployee.getId()).orElse(null);
+        if(user != null){
+            user.setEmail(savedEmployee.getEmailAddress());
+            userRepository.save(user);
+        }
         savedEmployee.setAddress(salariedEmployee.getAddress());
         savedEmployee.setSalary(salariedEmployee.getSalary());
 
