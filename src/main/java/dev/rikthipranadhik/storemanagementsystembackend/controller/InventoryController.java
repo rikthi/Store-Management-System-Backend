@@ -3,6 +3,7 @@ package dev.rikthipranadhik.storemanagementsystembackend.controller;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.inventory.InventoryDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.inventory.ItemDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.Inventory.Inventory;
+import dev.rikthipranadhik.storemanagementsystembackend.entity.Inventory.Item;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.inventory.InventoryMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.inventory.ItemMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.inventory.InventoryService;
@@ -46,12 +47,19 @@ public class InventoryController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<InventoryDTO>  createInventory(@PathVariable("storeId") Long storeId, @RequestBody InventoryDTO inventoryDTO) {
+    public ResponseEntity<InventoryDTO> createInventory(@PathVariable("storeId") Long storeId, @RequestBody InventoryDTO inventoryDTO) {
         Inventory inventory = inventoryService.createInventory(inventoryMapper.fromDTO(inventoryDTO), storeId);
         if (inventory == null) {
 
         }
         return ResponseEntity.ok(inventoryMapper.toDTO(inventory));
+    }
+
+    @PostMapping("/{inventoryId}/addItem")
+    public ResponseEntity<ItemDTO> addItem(@PathVariable("storeId") Long s, @PathVariable("inventoryId") Long inventoryId, @RequestBody ItemDTO itemDTO) {
+        return ResponseEntity.ok( itemMapper.toDTO(inventoryService.createItem(
+                itemMapper.fromDTO(itemDTO), inventoryId
+        )));
     }
 
 
