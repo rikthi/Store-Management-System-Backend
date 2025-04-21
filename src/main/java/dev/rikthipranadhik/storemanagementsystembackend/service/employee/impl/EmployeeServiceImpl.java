@@ -14,6 +14,7 @@ import dev.rikthipranadhik.storemanagementsystembackend.repository.employee.Sala
 import dev.rikthipranadhik.storemanagementsystembackend.repository.store.StoreRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.user.UserRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.employee.EmployeeService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -178,6 +179,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public void deleteEmployee(Integer employeeId) {
         userRepository.findByEmployeeId(employeeId).ifPresent(userRepository::delete);
         attendanceRepository.deleteByEmployeeId(employeeId);
