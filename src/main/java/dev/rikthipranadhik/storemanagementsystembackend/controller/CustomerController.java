@@ -51,7 +51,7 @@ public class CustomerController {
         );
     }
 
-    @GetMapping("receipt/get/{customerId}")
+    @GetMapping("/receipt/get/{customerId}")
     public ResponseEntity<List<ReceiptDTO>> getReceiptsByCustomerId(@PathVariable("storeId") Long storeId, @PathVariable("customerId") Long customerId) {
         return ResponseEntity.ok(customerService.listReceiptsByCustomerId(customerId)
                 .stream()
@@ -60,7 +60,7 @@ public class CustomerController {
         );
     }
 
-    @PostMapping("receipt/create")
+    @PostMapping("/receipt/create")
     public ResponseEntity<ReceiptDTO> createReceipt(@RequestBody ReceiptDTO receiptDTO, @PathVariable Long storeId) {
         return ResponseEntity.ok(receiptMapper.toDTO(customerService.createReceipt(receiptMapper.fromDTO(receiptDTO), receiptDTO.customerId())));
     }
