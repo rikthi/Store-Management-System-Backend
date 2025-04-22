@@ -5,6 +5,7 @@ import dev.rikthipranadhik.storemanagementsystembackend.entity.Inventory.Item;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.store.Store;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.inventory.InventoryRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.inventory.ItemRepository;
+import dev.rikthipranadhik.storemanagementsystembackend.repository.stockReport.StockReportRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.repository.store.StoreRepository;
 import dev.rikthipranadhik.storemanagementsystembackend.service.inventory.InventoryService;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,7 @@ public class InventoryServiceImpl implements InventoryService {
     private final InventoryRepository inventoryRepository;
     private final ItemRepository itemRepository;
     private final StoreRepository storeRepository;
+    private final StockReportRepository stockReportRepository;
 
 
     @Override
@@ -65,6 +67,7 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     @Transactional
     public void deleteInventory(Inventory inventory) {
+        stockReportRepository.deleteByInventoryId(inventory.getId());
         itemRepository.deleteByInventoryId(inventory.getId());
         inventoryRepository.delete(inventory);
     }

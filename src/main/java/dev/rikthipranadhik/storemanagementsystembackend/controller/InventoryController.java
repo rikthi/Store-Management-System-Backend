@@ -2,11 +2,14 @@ package dev.rikthipranadhik.storemanagementsystembackend.controller;
 
 import dev.rikthipranadhik.storemanagementsystembackend.dto.inventory.InventoryDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.inventory.ItemDTO;
+import dev.rikthipranadhik.storemanagementsystembackend.dto.stockReport.StockReportDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.Inventory.Inventory;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.Inventory.Item;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.inventory.InventoryMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.inventory.ItemMapper;
+import dev.rikthipranadhik.storemanagementsystembackend.mapper.stockReport.StockReportMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.inventory.InventoryService;
+import dev.rikthipranadhik.storemanagementsystembackend.service.stockReport.StockReportService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,8 @@ public class InventoryController {
     private final InventoryService inventoryService;
     private final InventoryMapper inventoryMapper;
     private final ItemMapper itemMapper;
+    private final StockReportMapper stockReportMapper;
+    private final StockReportService stockReportService;
 
     @GetMapping("/listAllInventories")
     public ResponseEntity<List<InventoryDTO>> listAllInventories(@PathVariable("storeId") Long storeId) {
@@ -83,11 +88,14 @@ public class InventoryController {
     }
 
     @DeleteMapping("items/{itemId}/delete")
-    public ResponseEntity<String>  deleteItem(@PathVariable("storeId") Long s, @PathVariable("itemId") Long itemId) {
+    public ResponseEntity<String> deleteItem(@PathVariable("storeId") Long s, @PathVariable("itemId") Long itemId) {
         inventoryService.deleteItem(itemId);
         return ResponseEntity.ok("Item deleted");
     }
 
-
+    @GetMapping("{inventoryId}/stockReport")
+    public ResponseEntity<StockReportDTO> getStockReport(@PathVariable("storeId") Long s, @PathVariable("inventoryId") Long inventoryId) {
+        return ResponseEntity.ok(stockReportMapper.toDTO(stockReportService.getStockReportByInventoryId(inventoryId)));
+    }
 
 }
