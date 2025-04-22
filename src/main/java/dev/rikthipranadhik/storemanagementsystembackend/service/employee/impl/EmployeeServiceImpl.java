@@ -175,7 +175,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Manager updateManager(Manager manager) {
-        return null;
+        Manager savedEmployee = managerRepository.findById(manager.getId()).orElse(null);
+
+        if (savedEmployee == null){
+            throw new IllegalArgumentException("Employee Not Found");
+        }
+
+        savedEmployee.setName(manager.getName());
+        savedEmployee.setGender(manager.getGender());
+        savedEmployee.setPhoneNumber(manager.getPhoneNumber());
+        savedEmployee.setDateOfBirth(manager.getDateOfBirth());
+        savedEmployee.setEmailAddress(manager.getEmailAddress());
+        User user = userRepository.findByEmployeeId(savedEmployee.getId()).orElse(null);
+        if(user != null){
+            user.setEmail(savedEmployee.getEmailAddress());
+            userRepository.save(user);
+        }
+        savedEmployee.setAddress(manager.getAddress());
+
+        return managerRepository.save(savedEmployee);
     }
 
     @Override

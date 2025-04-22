@@ -177,4 +177,9 @@ public class EmployeeController {
         return ResponseEntity.ok(managerMapper.toDTO(employeeService.getManagerByStoreId(storeId)));
     }
 
+    @PutMapping("update/manager")
+    public ResponseEntity<ManagerDTO> updateManager(@RequestBody ManagerDTO managerDTO, @PathVariable Long storeId) {
+        return ResponseEntity.ok(managerMapper.toDTO(employeeService.updateManager(managerMapper.fromDTO(managerDTO))));
+    }
+
 }
