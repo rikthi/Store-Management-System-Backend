@@ -98,4 +98,14 @@ public class InventoryController {
         return ResponseEntity.ok(stockReportMapper.toDTO(stockReportService.getStockReportByInventoryId(inventoryId)));
     }
 
+    @GetMapping("{inventoryId}/items/expired")
+    public ResponseEntity<List<ItemDTO>> getExpiredItems(@PathVariable("storeId") Long s, @PathVariable("inventoryId") Long inventoryId) {
+        return ResponseEntity.ok(
+                inventoryService.getExpiredItems(inventoryId)
+                        .stream()
+                        .map(itemMapper::toDTO)
+                        .toList()
+        );
+    }
+
 }

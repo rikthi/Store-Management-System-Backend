@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -163,5 +165,24 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public Item getItemById(Long itemId) {
         return itemRepository.findById(itemId).orElse(null);
+    }
+
+    @Override
+    public List<Item> getExpiredItems(Long inventoryId) {
+        List<Item> items = itemRepository.findByInventoryId(inventoryId);
+
+        if (items == null){
+            return new ArrayList<>();
+        }
+
+        LocalDate today = LocalDate.now();
+
+        for  (Item item : items){
+            if (today.isEqual(item.getExpirationDate()) || today.isAfter(item.getExpirationDate())){
+                items.add(item);
+            }
+        }
+
+        return items;
     }
 }
