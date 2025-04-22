@@ -1,12 +1,14 @@
 package dev.rikthipranadhik.storemanagementsystembackend.controller;
 
 import dev.rikthipranadhik.storemanagementsystembackend.dto.customer.CustomerDTO;
+import dev.rikthipranadhik.storemanagementsystembackend.dto.customer.CustomerId;
 import dev.rikthipranadhik.storemanagementsystembackend.dto.customer.ReceiptDTO;
 import dev.rikthipranadhik.storemanagementsystembackend.entity.Customer.Customer;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.customer.CustomerMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.mapper.customer.ReceiptMapper;
 import dev.rikthipranadhik.storemanagementsystembackend.service.customer.CustomerService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,5 +63,16 @@ public class CustomerController {
     @PostMapping("receipt/create")
     public ResponseEntity<ReceiptDTO> createReceipt(@RequestBody ReceiptDTO receiptDTO, @PathVariable Long storeId) {
         return ResponseEntity.ok(receiptMapper.toDTO(customerService.createReceipt(receiptMapper.fromDTO(receiptDTO), receiptDTO.customerId())));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerDTO customerDTO, @PathVariable Long storeId) {
+        return ResponseEntity.ok(customerMapper.toDTO(customerService.updateCustomer(customerMapper.fromDTO(customerDTO))));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCustomer(@RequestBody CustomerId customerId, @PathVariable Long storeId) {
+        customerService.deleteCustomer(customerId.id());
+        return new ResponseEntity<>("Customer with id " + customerId + " has been deleted", HttpStatus.OK);
     }
 }
