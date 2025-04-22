@@ -19,4 +19,6 @@ public interface InventoryService {
     void deleteItem(Long itemId);
     Item getItemById(Long itemId);
     List<Item> getExpiredItems(Long inventoryId);
+
+    List<Item> getAlmostExpiredItems(Long inventoryId);
 }

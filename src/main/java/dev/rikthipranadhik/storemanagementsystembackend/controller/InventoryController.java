@@ -108,4 +108,13 @@ public class InventoryController {
         );
     }
 
+    @GetMapping("{inventoryId}/items/almostExpired")
+    public ResponseEntity<List<ItemDTO>> getAlmostExpiredItems(@PathVariable("storeId") Long s, @PathVariable("inventoryId") Long inventoryId) {
+        return ResponseEntity.ok(
+                inventoryService.getAlmostExpiredItems(inventoryId)
+                        .stream()
+                        .map(itemMapper::toDTO)
+                        .toList()
+        );
+    }
 }

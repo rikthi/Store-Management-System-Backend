@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,6 +171,7 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public List<Item> getExpiredItems(Long inventoryId) {
         List<Item> items = itemRepository.findByInventoryId(inventoryId);
+        List<Item> expiredItems = new ArrayList<>();
 
         if (items == null){
             return new ArrayList<>();
@@ -179,10 +181,31 @@ public class InventoryServiceImpl implements InventoryService {
 
         for  (Item item : items){
             if (today.isEqual(item.getExpirationDate()) || today.isAfter(item.getExpirationDate())){
-                items.add(item);
+                expiredItems.add(item);
             }
         }
 
-        return items;
+        return expiredItems;
+    }
+
+    @Override
+    public List<Item> getAlmostExpiredItems(Long inventoryId){
+        List<Item> items = itemRepository.findByInventoryId(inventoryId);
+        List<Item> almostExpiredItems = new ArrayList<>();
+        if (items == null){
+            return new ArrayList<>();
+        }
+
+        LocalDate today = LocalDate.now();
+        long daysBetween;
+
+        for  (Item item : items){
+            daysBetween = ChronoUnit.DAYS.between(today, item.getExpirationDate());
+            if (daysBetween <= 10){
+                almostExpiredItems.add(item);
+            }
+        }
+
+        return almostExpiredItems;
     }
 }
