@@ -172,4 +172,9 @@ public class EmployeeController {
         return new ResponseEntity<>("Employee deleted successfully", HttpStatus.OK);
     }
 
+    @GetMapping("get/manager")
+    public ResponseEntity<ManagerDTO> getManager(@PathVariable("storeId") Long storeId) {
+        return ResponseEntity.ok(managerMapper.toDTO(employeeService.getManagerByStoreId(storeId)));
+    }
+
 }

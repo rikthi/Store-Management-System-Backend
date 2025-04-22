@@ -186,6 +186,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(employeeId);
 }
 
+    @Override
+    public Manager getManagerByStoreId(Long storeId) {
+        return managerRepository.findManagerByStoreId(storeId);
+    }
+
     public Employee getEmployeeByEmailAddress(String emailAddress){
          return employeeRepository.findByEmailAddress(emailAddress)
                  .orElseThrow(

@@ -32,4 +32,6 @@ public interface EmployeeService {
     Manager updateManager(Manager manager);
 
     void deleteEmployee(Integer employeeId);
+
+    Manager getManagerByStoreId(Long storeId);
 }
