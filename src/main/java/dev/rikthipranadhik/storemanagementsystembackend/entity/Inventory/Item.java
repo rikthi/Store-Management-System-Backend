@@ -40,7 +40,7 @@ public class Item {
     private Long quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="inventory_id", nullable=false)
     private Inventory inventory;
 
